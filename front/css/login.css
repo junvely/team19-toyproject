@@ -2,31 +2,85 @@
   margin: 0;
   padding: 0;
 }
+
+div {
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
   align-items: center;
   justify-content: center;
-  
+  margin: 0 auto;
+  height: 100vh;
+
+
 }
+
 .container {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   width: 60%;
+  height: 60%;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.main-header {
+  margin-bottom: 20px;
+  height: 10%;
+}
+
+.main-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 10px;
+  margin-bottom: 50%;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: 10px;
 }
 
 .main-body>p {
   text-align: center;
 }
 
-.main-left {
-  background-color: purple;
-  width: 60%
+.main-body input {
+  width: 100%;
+  padding-left : 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 
 }
 
+.main-left {
+  background-color: purple;
+  width: 60%;
+  height:100%;
+}
+
 .main-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 20px;
   width: 40%;
-  border: 1px solid;
+  height: 80%;
+}
+
+.main-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-button {
+  border: none;
+  background-color: purple;
+  color: white;
+  width: 90%;
+  height: 3vh;
 }
