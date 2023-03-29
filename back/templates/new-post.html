@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://kit.fontawesome.com/dab80053ef.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../static/css/new-post.css">
+    <title>Document</title>
+
+    <script>
+        // let loadFile = function(event) {
+        //   let reader = new FileReader();
+        //   reader.onload = function(){
+        //     let output = document.getElementById('uploadedImg');
+        //     output.src = reader.result;
+        //   };
+        //   reader.readAsDataURL(event.target.files[0]);
+        // };
+      </script>
+</head>
+<body>
+    <div class="container">
+        <div class="new-post">
+            <!-- <form method="post" action='/' encype="multipart/form-data" class="new-post__upload">
+                <div class="new-post__img">
+                    <img id="uploadedImg" alt="">
+                    <input type="file" accept="image/*" onchange='loadFile(event)' name="file" id="upload"> 
+                    
+                </div>
+            </form> -->
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="file" name="files[]" multiple />
+                <input type="submit" value="Upload Files" name="submit" />
+            </form>
+
+            <div class="new-post__add">
+                <div class="new-post__title">
+                    <input id="titleInput" type="text" class="new-post__input" placeholder="제목">
+                </div>
+                <div class="new-post__description">
+                    <textarea class="new-post__textarea" name="" id="descriptionTextarea" cols="30" rows="10" placeholder="내용을 입력하세요..."></textarea>
+                </div>
+                <div class="new-post__addBtn">
+                    <button id="addBtn" class="add-button"><i class="fa-solid fa-share-from-square"></i>공유하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../static/js/new-post.js"></script>
+</body>
+</html>
