@@ -1,60 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>로그인 페이지</title>
-    <link rel="stylesheet" href="../static/css/account.css" />
-    <script src="../static/js/account.js" type="module" defer></script>
-  </head>
-  <body>
-    <div class="wrap">
-      
-      <section class="account-con">
-        <div class="img-con">
-            <h2>account</h2>
-            <img src="http://127.0.0.1:5500/team19-toyproject-02/team19-toyproject-02/static/img/account.svg" alt="pet" />
-            <p>지금 로그인하고, 당신의 펫을 자랑해 보세요!</p>
-            <p class="font-small">Please login and get started!</p>
-        </div>
-        <div class="login-form">
-            <h1 onclick="location.href = '/'">Petstagram🐶</h1>
-            <div class="input-con">
-                <label for="username">이름</label>
-                <input type="text" id="username" name="username" required minlength="2" maxlength="5"
-                    placeholder="2 ~ 5자 이내 한글만 가능" onblur="checkName()">
-                <span id="nameWarning"></span>
-            </div>
-            <div class="input-con">
-                <label for="useremail">이메일</label>
-                <input class="input-con" type="email" id="useremail" name="useremail" check_result="fail" required
-                    maxlength="40" placeholder="exam@mail.com" onblur="checkEmail()">
-                <span id="emailWarning"></span>
-            </div>
-            <div class="input-con">
-                <label for="usernickname">닉네임</label>
-                <input class="input-con" type="text" id="usernickname" name="usernickname"
-                        check_result="fail" required minlength="2" maxlength="10" placeholder="2 ~ 10자 이내 문자만 가능"
-                        onblur="checkNickname()">
-                    <span id="nickWarning"></span>
-            </div>
-            <div class="input-con">
-                <label for="userpw1">비밀번호</label>
-                <input class="input-con" type="password" id="userpw1" name="userpw" required minlength="8"
-                    maxlength="20" placeholder="영문 숫자 포함 8 ~ 20자 내로 입력해주세요" onblur="checkPw1()">
-                <span id="pw1Warning"></span>
-            </div>
-            <div class="input-con">
-                <label for="userpw2">비밀번호 확인</label>
-                <input type="password" id="userpw2" name="userpw" required minlength="8" maxlength="20"
-                    placeholder="영문 숫자 포함 8 ~ 20자 내로 입력해주세요" onblur="checkPw2()">
-                <span id="pw2Warning"></span>
-            </div>
-            <button class="login-button" onclick="sendForm()">가입 완료</button>
-        </div>
 
-    </section>
+<head>
+    <title>회원가입</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>toyproject</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://kit.fontawesome.com/0ce3899162.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/account.css" />
+
+    <script src="{{ url_for('static', filename='js/signup.js') }}" > </script>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <section class="account-con">
+            <div class="img-con">
+                <h2>account</h2>
+                <img src="http://127.0.0.1:5500/team19-toyproject-02/team19-toyproject-02/static/img/account.svg" alt="pet" />
+                <p>지금 로그인하고, 당신의 펫을 자랑해 보세요!</p>
+                <p class="font-small">Please login and get started!</p>
+            </div>
+            <div class="login-form">
+                <h1 onclick="location.href = '/'">Petstagram🐶</h1>
+                <div class="input-con">
+                    <label for="username">이름</label>
+                    <input type="text" id="username" name="username" required minlength="2" maxlength="5"
+                        placeholder="2 ~ 5자 이내 한글만 가능" onblur="checkName()">
+                    <span id="nameWarning"></span>
+                </div>
+                <div class="input-con">
+                    <label for="useremail">이메일</label>
+                    <input class="input-con" type="email" id="useremail" name="useremail" check_result="fail" required
+                        maxlength="40" placeholder="exam@mail.com" onblur="checkEmail()">
+                    <span id="emailWarning"></span>
+                </div>
+                <div class="input-con">
+                    <label for="usernickname">닉네임</label>
+                    <input class="input-con" type="text" id="usernickname" name="usernickname"
+                            check_result="fail" required minlength="2" maxlength="10" placeholder="2 ~ 10자 이내 문자만 가능"
+                            onblur="checkNickname()">
+                        <span id="nickWarning"></span>
+                </div>
+                <div class="input-con">
+                    <label for="userpw1">비밀번호</label>
+                    <input class="input-con" type="password" id="userpw1" name="userpw" required minlength="8"
+                        maxlength="20" placeholder="영문 숫자 포함 8 ~ 20자 내로 입력해주세요" onblur="checkPw1()">
+                    <span id="pw1Warning"></span>
+                </div>
+                <div class="input-con">
+                    <label for="userpw2">비밀번호 확인</label>
+                    <input type="password" id="userpw2" name="userpw" required minlength="8" maxlength="20"
+                        placeholder="영문 숫자 포함 8 ~ 20자 내로 입력해주세요" onblur="checkPw2()">
+                    <span id="pw2Warning"></span>
+                </div>
+                <button class="login-button" onclick="sendForm()">가입 완료</button>
+            </div>
+
+        </section>
     </div>
-  </body>
+</body>
+
 </html>
