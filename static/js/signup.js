@@ -27,10 +27,11 @@ function sendForm() {
             .then((res) => res.json())
             .then((data) => {
                 alert(data["msg"]);
-                window.location.reload()
+                window.location.href = "/login";
+
             });
     } else {
-        alert('가입 불가능')
+        alert('가입이 불가능합니다. 필수 입력칸을 확인해주세요')
     }
 
 
