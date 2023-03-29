@@ -2,250 +2,322 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+  <title>toyproject</title>
 
-    <title>펀치 - 팬명록</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
+    rel="stylesheet" />
 
-    <meta property="og:title" content="펀치 팬명록" />
-    <meta property="og:description" content="펀치에게 응원 한 마디!" />
-    <meta property="og:image" content="https://i.ytimg.com/vi/coCLnRlV_AY/maxresdefault.jpg" />
-
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
-        rel="stylesheet" />
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Poor+Story&display=swap');
-
-        * {
-            font-family: 'Jua', sans-serif;
-            font-family: 'Poor Story', cursive;
-        }
-
-        .mypic {
-            width: 100%;
-            height: 300px;
-
-            background-image: linear-gradient(0deg,
-                    rgba(0, 0, 0, 0.5),
-                    rgba(0, 0, 0, 0.5)),
-                url("https://i.ytimg.com/vi/coCLnRlV_AY/maxresdefault.jpg");
-            background-position: center 30%;
-            background-size: cover;
-
-            color: white;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .mypost {
-            width: 95%;
-            max-width: 500px;
-            margin: 20px auto 20px auto;
-
-            box-shadow: 0px 0px 3px 0px black;
-            padding: 20px;
-        }
-
-        .mypost>button {
-            margin-top: 15px;
-        }
-
-        .mycards {
-            width: 95%;
-            max-width: 500px;
-            margin: auto;
-        }
-
-        .mycards>.card {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .kakaologin {
-            background-image: url("https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fdq9lOC%2Fbtr0NNz9YuW%2FbZGCrKIOp1Q74pEh5gdhuK%2Fimg.png");
-            width: 200px;
-            height: 50px;
-        }
-    </style>
-    <script>
-        $(document).ready(function () {
-            set_temp();
-            show_comment();
-        });
-        function set_temp() {
-            fetch("http://spartacodingclub.shop/sparta_api/weather/seoul").then((res) => res.json()).then((data) => {
-                let temp = data['temp']
-                $('#temp').text(temp)
-            });
-        }
-        function save_comment() {
-            let name = $('#name').val()
-            let comment = $('#comment').val()
-
-            let formData = new FormData();
-            formData.append("name_give", name);
-            formData.append("comment_give", comment);
-
-            fetch('/guestbook', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
-                alert(data["msg"]);
-                window.location.reload()
-            });
-        }
-
-        function del_cmt(comment) {
-            // let name = name
-            let cmt = comment
-
-            let formData = new FormData();
-            formData.append("name_give", name);
-            formData.append("comment_give", comment);
-            
-            fetch('/delete', { method: "POST", body: formData, }).then((res) => res.json()).then((data) => {
-                alert(data["msg"]);
-                window.location.reload()
-            });
-        }
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://kit.fontawesome.com/0ce3899162.js" crossorigin="anonymous"></script>
 
 
-        function show_comment() {
-            fetch('/guestbook').then((res) => res.json()).then((data) => {
-                let rows = data['result']
-                $('#comment-list').empty()
-                rows.forEach((a) => {
-                    let name = a['name']
-                    let comment = a['comment']
+  <!-- <script src="index.js"></script> -->
+  <!-- <link href="/front/css/index.css" rel="stylesheet"> -->
 
-                    let temp_html = `<div class="card">
-                                        <div class="card-body">
-                                            <blockquote class="blockquote mb-0">
-                                                <p>${comment}</p>
-                                                <footer class="blockquote-footer">${name}</footer>
-                                                <button onclick="del_cmt('${comment}')" class="btn btn-dark">삭제하기<button>
-                                            </blockquote>
-                                        </div>
-                                    </div>`
-                    $('#comment-list').append(temp_html)
-                })
-            })
-        }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
 
-        function kakao_login() {
+    div {
+      box-sizing: border-box;
+    }
 
-        }
+    a {
+      color: black;
+    }
 
-        
-    </script>
-    <ul>
-        <li onclick="kakaoLogin();">
-          <a href="javascript:void(0)">
-              <span>카카오 로그인</span>
-          </a>
-        </li>
-        <li onclick="kakaoLogout();">
-          <a href="javascript:void(0)">
-              <span>카카오 로그아웃</span>
-          </a>
-        </li>
-    </ul>
-    <!-- 카카오 스크립트 -->
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script>
-    Kakao.init('6afef363ee4282a42075f31ed0c066cd'); //발급받은 키 중 javascript키를 사용해준다.
-    console.log(Kakao.isInitialized()); // sdk초기화여부판단
-    //카카오로그인
-    function kakaoLogin() {
-        Kakao.Auth.login({
-          success: function (response) {
-            Kakao.API.request({
-              url: '/v2/user/me',
-              success: function (response) {
-                  console.log(response)
-              },
-              fail: function (error) {
-                console.log(error)
-              },
-            })
-          },
-          fail: function (error) {
-            console.log(error)
-          },
-        })
+    a:link {
+      text-decoration: none;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    a:visited {
+      text-decoration: none;
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(#76b2fe, #b69efe);
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .navbar {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #D2DAFF;
+      height: 50px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    i {
+      font-size: 1.5rem;
+    }
+
+    .heading {
+      text-align: center;
+    }
+
+    .heading__title {
+      font-weight: 600;
+      color: white;
+    }
+
+    .main-container {
+      background: radial-gradient(#76b2fe, #b69efe);
+      ;
+    }
+
+    .hero-section {
+      align-items: flex-start;
+      background: radial-gradient(#76b2fe, #b69efe);
+      display: flex;
+      min-height: 100%;
+      justify-content: center;
+      padding: var(--spacing-xxl) var(--spacing-l);
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      grid-column-gap: var(--spacing-l);
+      grid-row-gap: var(--spacing-l);
+      max-width: var(--width-container);
+      width: 100%;
+    }
+
+    @media(min-width: 540px) {
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-    //카카오로그아웃  
-    function kakaoLogout() {
-        if (Kakao.Auth.getAccessToken()) {
-          Kakao.API.request({
-            url: '/v1/user/unlink',
-            success: function (response) {
-                console.log(response)
-            },
-            fail: function (error) {
-              console.log(error)
-            },
-          })
-          Kakao.Auth.setAccessToken(undefined)
-        }
-      }  
-    </script>
+    }
+
+    @media(min-width: 960px) {
+      .card-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .card {
+      list-style: none;
+      position: relative;
+    }
+
+    .card:before {
+      content: '';
+      display: block;
+      padding-bottom: 150%;
+      width: 100%;
+    }
+
+    .card__background {
+      background-size: cover;
+      background-position: center;
+      border-radius: var(--spacing-l);
+      bottom: 0;
+      filter: brightness(0.75) saturate(1.2) contrast(0.85);
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform-origin: center;
+      trsnsform: scale(1) translateZ(0);
+      transition:
+        filter 200ms linear,
+        transform 200ms linear;
+    }
+
+    .card:hover .card__background {
+      transform: scale(1.05) translateZ(0);
+    }
+
+    .card-grid:hover>.card:not(:hover) .card__background {
+      filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
+    }
+
+    .card__content {
+      left: 0;
+      padding: var(--spacing-l);
+      position: absolute;
+      top: 0;
+    }
+
+    .card__category {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin-bottom: var(--spacing-s);
+      text-transform: uppercase;
+    }
+
+    .card__heading {
+      color: var(--text-lighter);
+      font-size: 1.9rem;
+      text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
+      line-height: 1.4;
+      word-spacing: 100vw;
+    }
+  </style>
+  <!-- <script>
+    $(document).ready(function () {
+      get_users();
+    });
+
+
+    function get_users() {
+      fetch('/user')
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
+
+  </script> -->
 </head>
 
-<body>
-    <div class="mypic">
-        <h1>펀치 팬명록</h1>
-        <p>서울 현재기온: <span id="temp">36</span>도</p>
-        <button class="kakaologin"></button>
+<!-- <body>
+  <nav class="navbar">
+    <div>
+      <a href="/index.html"><i class="fa-solid fa-house home"></i></a>
     </div>
-    <div class="mypost">
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="name" placeholder="url" />
-            <label for="floatingInput">닉네임</label>
-        </div>
-        <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="comment"
-                style="height: 100px"></textarea>
-            <label for="floatingTextarea2">응원댓글</label>
-        </div>
-        <button onclick="save_comment()" type="button" class="btn btn-dark">
-            댓글 남기기
-        </button>
+    <div>
+      <tr>
+        <td><a href="/myfeed">내 피드</a></td>
+        <td><a href="feed.html">피드</a></td>
+        <td><a href="feed/create">내 펫 자랑하기</a></td>
+        <td><a href="login">로그인</a></td>
+        <td><a href="login">로그아웃</a></td>
+      </tr>
     </div>
-    <div class="mycards" id="comment-list">
-        <div class="card">
-            <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p>새로운 앨범 너무 멋져요!</p>
-                    <footer class="blockquote-footer">호빵맨</footer>
-                </blockquote>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p>새로운 앨범 너무 멋져요!</p>
-                    <footer class="blockquote-footer">호빵맨</footer>
-                </blockquote>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p>새로운 앨범 너무 멋져요!</p>
-                    <footer class="blockquote-footer">호빵맨</footer>
-                </blockquote>
-            </div>
-        </div>
-    </div>
-</body>
+  </nav>
 
+
+  <div class="main-container">
+    <div class="heading">
+      <h1 class="heading__title">Petstargram</h1>
+      <p class="heading__credits"><a class="heading__link" target="_blank" href="https://dribbble.com/sl"> </a></p>
+    </div>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+    <section class="hero-section">
+      <div class="card-grid">
+        <a class="card" href="#">
+          <div class="card__background"></div>
+          <div class="card__content">
+            <p class="card__category">제목</p>
+            <h3 class="card__heading">내용</h3>
+          </div>
+        </a>
+        <a class="card" href="#">
+          <div class="card__background"></div>
+          <div class="card__content">
+            <p class="card__category">제목</p>
+            <h3 class="card__heading">내용</h3>
+          </div>
+        </a>
+        <a class="card" href="#">
+          <div class="card__background"></div>
+          <div class="card__content">
+            <p class="card__category">제목</p>
+            <h3 class="card__heading">내용</h3>
+          </div>
+          </li>
+          <a class="card" href="#">
+            <div class="card__background"></div>
+            <div class="card__content">
+              <p class="card__category">제목</p>
+              <h3 class="card__heading">내용</h3>
+            </div>
+          </a>
+          <div>
+    </section>
+
+
+
+  </div>
+  </div>
+  <script>
+    AOS.init();
+  </script>
+
+</body> -->
+
+
+<body>
+  <form id="accountform">
+    아이디<input id="id"/>
+    비밀번호<input id="pw"/>
+    이름<input id="name"/>
+    별명 <input id="nickname"/>
+    <button type="submit">회원가입</button>
+  </form>
+
+  <script>
+    $(document).ready(function () {
+      get_users();
+    });
+
+
+    function get_users() {
+      fetch('/userget')
+        .then((response) => response.json())
+        .then((data) => {
+          let user = data['result'];
+          console.log(user)
+        })
+    }
+  
+
+
+  document.querySelector("#accountform").addEventListener("submit", function(event) {
+      event.preventDefault()
+      console.log(1)
+      let id = $('#id').val()
+        let pw = $('#pw').val()
+        let name = $('#name').val()
+        let nickname = $('#nickname').val()
+    
+        let formData = new FormData();
+        formData.append("id_give", id);
+        formData.append("pw_give", pw);
+        formData.append("name_give", name);
+        formData.append("nickname_give", nickname);
+    
+        fetch('/adduser', { method: "POST", body: formData, })
+          .then((res) => res.json())
+          .then((data) => {
+            alert(data["msg"]);
+            window.location.reload()
+          });
+    })
+      // function add_user() {
+        
+      //   console.log(1)
+
+      // }
+    </script>
+
+
+</body>
 </html>
