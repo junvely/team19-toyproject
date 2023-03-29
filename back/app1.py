@@ -27,6 +27,10 @@ def feed_write():
 def feed_update():
    return render_template('.html')
 
+@app.route('/cloudinary')
+def file_upload():
+   return render_template('cloudinary.html')
+
 # 회원가입 완료시 회원 정보를 user table에 저장하는 POST요청
 @app.route("/adduser", methods=["POST"])
 def add_user():
