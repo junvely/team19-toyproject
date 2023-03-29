@@ -1,0 +1,95 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background: radial-gradient(#7b62fe, #b69efe);
+    font-family: sans-serif;
+}
+
+button{
+    border: none;
+    background-color: transparent;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form{
+    position: relative;
+}
+
+.new-post{
+    background-color: #fff;
+    border-radius: 15px;
+    width: 850px;
+    margin: 0 auto;
+    padding: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.new-post__upload{
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    /* margin-right: 20px; */
+}
+
+.new-post__img{
+    border: 1px solid pink;
+    width: 100%;
+    height: 300px;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.new-post__uploadBtn{
+    text-align: center;
+    padding: 10px;
+}
+
+.new-post__add{
+    width: 40%;
+    height: 300px;
+}
+
+.new-post__add input{
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.new-post__add textarea{
+    height: 250px;
+    padding: 10px;
+}
+
+.new-post__add input, .new-post__add textarea {
+    width: 100%;
+}
+
+.upload-button, .add-button{
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.new-post__addBtn{
+    text-align: right;
+}
+
+label{
+    padding: 5px;
+}
