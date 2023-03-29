@@ -117,7 +117,7 @@ i {
   right: 0;
   top: 0;
   transform-origin: center;
-  trsnsform: scale(1) translateZ(0);
+  transform: scale(1) translateZ(0);
   transition: 
     filter 200ms linear,
     transform 200ms linear;
@@ -151,4 +151,13 @@ i {
   text-shadow: 2px 2px 20px rgba(0,0,0,0.2);
   line-height: 1.4;
   word-spacing: 100vw;
+}
+
+
+.login {
+  color: white;
+}
+
+.logout {
+  color: white;
 }

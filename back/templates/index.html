@@ -13,199 +13,30 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
     rel="stylesheet" />
-
+  
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://kit.fontawesome.com/0ce3899162.js" crossorigin="anonymous"></script>
 
 
-  <!-- <script src="index.js"></script> -->
-  <!-- <link href="/front/css/index.css" rel="stylesheet"> -->
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
-
-    div {
-      box-sizing: border-box;
-    }
-
-    a {
-      color: black;
-    }
-
-    a:link {
-      text-decoration: none;
-      margin-left: 5px;
-      margin-right: 5px;
-    }
-
-    a:visited {
-      text-decoration: none;
-      margin-left: 5px;
-      margin-right: 5px;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      background: radial-gradient(#76b2fe, #b69efe);
-    }
-
-    main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .navbar {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #D2DAFF;
-      height: 50px;
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-
-    i {
-      font-size: 1.5rem;
-    }
-
-    .heading {
-      text-align: center;
-    }
-
-    .heading__title {
-      font-weight: 600;
-      color: white;
-    }
-
-    .main-container {
-      background: radial-gradient(#76b2fe, #b69efe);
-      ;
-    }
-
-    .hero-section {
-      align-items: flex-start;
-      background: radial-gradient(#76b2fe, #b69efe);
-      display: flex;
-      min-height: 100%;
-      justify-content: center;
-      padding: var(--spacing-xxl) var(--spacing-l);
-    }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-      grid-column-gap: var(--spacing-l);
-      grid-row-gap: var(--spacing-l);
-      max-width: var(--width-container);
-      width: 100%;
-    }
-
-    @media(min-width: 540px) {
-      .card-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media(min-width: 960px) {
-      .card-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    .card {
-      list-style: none;
-      position: relative;
-    }
-
-    .card:before {
-      content: '';
-      display: block;
-      padding-bottom: 150%;
-      width: 100%;
-    }
-
-    .card__background {
-      background-size: cover;
-      background-position: center;
-      border-radius: var(--spacing-l);
-      bottom: 0;
-      filter: brightness(0.75) saturate(1.2) contrast(0.85);
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      transform-origin: center;
-      trsnsform: scale(1) translateZ(0);
-      transition:
-        filter 200ms linear,
-        transform 200ms linear;
-    }
-
-    .card:hover .card__background {
-      transform: scale(1.05) translateZ(0);
-    }
-
-    .card-grid:hover>.card:not(:hover) .card__background {
-      filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
-    }
-
-    .card__content {
-      left: 0;
-      padding: var(--spacing-l);
-      position: absolute;
-      top: 0;
-    }
-
-    .card__category {
-      color: var(--text-light);
-      font-size: 0.9rem;
-      margin-bottom: var(--spacing-s);
-      text-transform: uppercase;
-    }
-
-    .card__heading {
-      color: var(--text-lighter);
-      font-size: 1.9rem;
-      text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
-      line-height: 1.4;
-      word-spacing: 100vw;
-    }
-  </style>
-  <!-- <script>
-    $(document).ready(function () {
-      get_users();
-    });
+  <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='js/index.js') }}" > </script>
 
 
-    function get_users() {
-      fetch('/user')
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-    }
 
-  </script> -->
 </head>
 
-<!-- <body>
+<body>
   <nav class="navbar">
     <div>
-      <a href="/index.html"><i class="fa-solid fa-house home"></i></a>
+      <a href="/index.html"><i class="fa-solid fa-house home" ></i></a>
     </div>
     <div>
       <tr>
         <td><a href="/myfeed">내 피드</a></td>
         <td><a href="feed.html">피드</a></td>
         <td><a href="feed/create">내 펫 자랑하기</a></td>
-        <td><a href="login">로그인</a></td>
+        <td><a class="login" href="login">로그인</a></td>
         <td><a href="login">로그아웃</a></td>
       </tr>
     </div>
@@ -221,7 +52,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 
     <section class="hero-section">
-      <div class="card-grid">
+      <div class="card-grid" id="cards">
         <a class="card" href="#">
           <div class="card__background"></div>
           <div class="card__content">
@@ -229,95 +60,17 @@
             <h3 class="card__heading">내용</h3>
           </div>
         </a>
-        <a class="card" href="#">
-          <div class="card__background"></div>
-          <div class="card__content">
-            <p class="card__category">제목</p>
-            <h3 class="card__heading">내용</h3>
-          </div>
-        </a>
-        <a class="card" href="#">
-          <div class="card__background"></div>
-          <div class="card__content">
-            <p class="card__category">제목</p>
-            <h3 class="card__heading">내용</h3>
-          </div>
-          </li>
-          <a class="card" href="#">
-            <div class="card__background"></div>
-            <div class="card__content">
-              <p class="card__category">제목</p>
-              <h3 class="card__heading">내용</h3>
-            </div>
-          </a>
-          <div>
+      <div>
     </section>
+      
 
 
-
-  </div>
+    </div>
   </div>
   <script>
     AOS.init();
   </script>
 
-</body> -->
-
-
-<body>
-  <form id="accountform">
-    아이디<input id="id"/>
-    비밀번호<input id="pw"/>
-    이름<input id="name"/>
-    별명 <input id="nickname"/>
-    <button type="submit">회원가입</button>
-  </form>
-
-  <script>
-    $(document).ready(function () {
-      get_users();
-    });
-
-
-    function get_users() {
-      fetch('/userget')
-        .then((response) => response.json())
-        .then((data) => {
-          let user = data['result'];
-          console.log(user)
-        })
-    }
-  
-
-
-  document.querySelector("#accountform").addEventListener("submit", function(event) {
-      event.preventDefault()
-      console.log(1)
-      let id = $('#id').val()
-        let pw = $('#pw').val()
-        let name = $('#name').val()
-        let nickname = $('#nickname').val()
-    
-        let formData = new FormData();
-        formData.append("id_give", id);
-        formData.append("pw_give", pw);
-        formData.append("name_give", name);
-        formData.append("nickname_give", nickname);
-    
-        fetch('/adduser', { method: "POST", body: formData, })
-          .then((res) => res.json())
-          .then((data) => {
-            alert(data["msg"]);
-            window.location.reload()
-          });
-    })
-      // function add_user() {
-        
-      //   console.log(1)
-
-      // }
-    </script>
-
-
 </body>
+
 </html>

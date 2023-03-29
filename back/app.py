@@ -50,14 +50,16 @@ def add_user():
 def add_feed():
    nickname_receive = request.form['nickname_give']
    title_receive = request.form['title_give']
-   body_receive = request.form['body_give']
+   description_receive = request.form['description_give']
    date_receive = request.form['date_give']
+   like_receive = request.form['like_give']
 
    doc = {
       'nickname': nickname_receive,
       'title': title_receive,
-      'body': body_receive,
-      'date': date_receive 
+      'description': description_receive,
+      'date': date_receive,
+      'like': like_receive
     }
    
    db.feed.insert_one(doc)
