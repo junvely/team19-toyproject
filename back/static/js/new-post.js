@@ -5,8 +5,36 @@ let add = document.querySelector('#addBtn')
 const url = "https://api.cloudinary.com/v1_1/dilvblhxt/image/upload";
 const form = document.querySelector("form");
 
-const addInfo = () =>{
-    let info ={
+
+
+let dataValue;
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const files = document.querySelector("[type=file]").files;
+    const formData = new FormData();
+
+    for (let i = 0; i < files.length; i++) {
+        let file = files[i];
+        formData.append("file", file);
+        formData.append("upload_preset", "syveus47");
+
+        fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+            .then((response) => {
+                return response.json();
+            })
+            .then((data) => {
+                dataValue = data.url;
+            });
+    }
+})
+
+
+const addInfo = () => {
+    let info = {
         id: uniqueId(),
         title: inputTitle.value,
         description: inputDescription.value,
@@ -14,31 +42,30 @@ const addInfo = () =>{
         like: 0,
         url: dataValue
     }
-
-    if (inputTitle.value != '' && inputDescription.value != ''){
-       hey(info) 
-    }else{
+    if (inputTitle.value != '' && inputDescription.value != '') {
+        hey(info)
+    } else {
         alert('BLANK ERRORRRRRRRRRRRRR!!!!!!!!!!!!!!!!')
     }
-    
 }
 
-const postDate = () =>{
+
+const postDate = () => {
     let newDate = new Date().toLocaleString();
     return newDate
 }
 
 console.log(postDate())
 
-const uniqueId = () =>{
+const uniqueId = () => {
     return Math.floor(Date.now() + Math.random() * 100)
 }
 
-const resetValue = () =>{
+const resetValue = () => {
     inputTitle.value = ''
     inputDescription.value = ''
 
-    return resetValue    
+    return resetValue
 }
 
 //서버에 보내는 함수 헤이
@@ -51,72 +78,9 @@ function hey(info) {
     formData.append('url_give', info.url);
 
     fetch("/test", { method: "POST", body: formData }).then(res => res.json()).then(data => {
-    console.log(data)   
+        console.log(data)
     })
 }
 
 
-// add.addEventListener('click', (e) =>{
-//     e.preventDefault()
-
-//     addInfo()
-//     resetValue()
-// })
-
-// const upload = () => {
-//     const files = document.querySelector("[type=file]").files;
-//     const formData = new FormData();
-  
-//     for (let i = 0; i < files.length; i++) {
-//         let file = files[i];
-//         formData.append("file", file);
-//         formData.append("upload_preset", "syveus47");
-  
-//         fetch(url, {
-//             method: "POST",
-//             body: formData,
-//         })
-//         .then((response) => {
-//             return response.json();
-//         })
-//         .then((data) => {
-//             document.getElementById("data").innerHTML += data.url;
-//             let dataValue = data.url;
-//             return dataValue
-//         });
-//     }
-// }
-
-  
-let dataValue = form.addEventListener("submit", (e) => {
-    e.preventDefault();
-  
-    const files = document.querySelector("[type=file]").files;
-    const formData = new FormData();
-  
-    for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        formData.append("file", file);
-        formData.append("upload_preset", "syveus47");
-  
-        fetch(url, {
-            method: "POST",
-            body: formData,
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            document.getElementById("data").innerHTML += data.url;
-            let dataValue = data.url;
-            return console.log(dataValue)
-        });
-    }
-
-    add.addEventListener('click', (e) =>{
-        e.preventDefault()
-    
-        addInfo()
-        resetValue()
-    })
-});
+add.addEventListener('click', addInfo )
