@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@cloudinary/url-gen": "^1.9.2",
-    "cloudinary": "^1.35.0"
-  }
-}
