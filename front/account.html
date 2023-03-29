@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>회원가입</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>toyproject</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400;500;600;700;900&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://kit.fontawesome.com/0ce3899162.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        form {
+            display: flex;
+        }
+
+        .login-form {
+            width: 100%;
+            height: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: radial-gradient(#76b2fe, #b69efe);
+        }
+
+        .leftimg {
+            width: 400px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            box-sizing: border-box;
+            object-fit: fill;
+        }
+
+        .joinbox {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(#76b2fe, #b69efe);
+            ;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        .username {
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .useremail {
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .userpw {
+            display: flex;
+            flex-direction: column;
+
+        }
+
+
+
+        .checkbox {
+            display: flex;
+            justify-content: center;
+        }
+
+        #username {
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            padding-left: 10px;
+            box-sizing: border-box;
+        }
+
+        #useremail {
+            width: 250px;
+            height: 30px;
+            border-radius: 5px;
+            padding-left: 10px;
+            box-sizing: border-box;
+            display: flex;
+        }
+
+        #usernickname {
+            width: 250px;
+            height: 30px;
+            border-radius: 5px;
+            padding-left: 10px;
+            box-sizing: border-box;
+            display: flex;
+        }
+
+        #userpw1 {
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            padding-left: 10px;
+            box-sizing: border-box;
+        }
+
+        #userpw2 {
+            width: 300px;
+            height: 30px;
+            border-radius: 5px;
+            padding-left: 10px;
+            box-sizing: border-box;
+        }
+
+        .checkbt {
+            width: 50px;
+            border-radius: 5px;
+            background-color: #D2DAFF;
+        }
+
+        .joinbt {
+            width: 100px;
+            height: 30px;
+            border-radius: 5px;
+            background-color: #AAC4FF;
+        }
+    </style>
+
+    <script defer>
+        function sendForm() {
+            let name = document.getElementById("username").value;
+            let email = document.getElementById("useremail").value;
+            let nickname = document.getElementById("usernickname").value;
+            let pw1 = document.getElementById("userpw1").value;
+
+            let nameValid = checkName();
+            let emailValid = checkEmail();
+            let nicknameValid = checkNickname();
+            let pw1Valid = checkPw1();
+
+            if (nameValid && emailValid && nicknameValid && pw1Valid) {
+                let data = {
+                    name,
+                    email,
+                    nickname,
+                    password: pw1,
+                }
+
+                let formData = new FormData();
+                formData.append("id_give", email);
+                formData.append("pw_give", pw1);
+                formData.append("name_give", name);
+                formData.append("nickname_give", nickname);
+
+                fetch('/adduser', { method: "POST", body: formData, })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        alert(data["msg"]);
+                        window.location.reload()
+                    });
+            }
+
+
+
+        }
+
+
+
+
+
+
+
+        function checkName() {
+            let name = document.getElementById("username").value;
+            const nameRegex = /^[가-힣]+$/;
+
+            if (nameRegex.test(name)) {
+                if (name.length <= 1) {
+                    nameWarning.textContent = "이름이 너무 짧습니다";
+                    nameWarning.style.color = "red";
+                    nameWarning.style.fontSize = "12px";
+                    return false
+                } else {
+                    nameWarning.textContent = "사용 가능한 이름 입니다";
+                    nameWarning.style.color = "green";
+                    nameWarning.style.fontSize = "12px";
+                    return true
+                }
+            } else {
+                nameWarning.textContent = "2 ~ 5자 이내 한글만 가능합니다";
+                nameWarning.style.color = "red";
+                nameWarning.style.fontSize = "12px";
+                return false
+            }
+        }
+
+
+
+
+        function checkEmail() {
+            let emails = []
+            fetch('/userget')
+                .then((response) => response.json())
+                .then((data) => {
+                    let user = data['result'];
+                    for (let i = 0; i < user.length; i++) {
+                        emails.push(user[i].user_id)
+                    }
+                })
+            let email = document.getElementById("useremail").value;
+            const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/; // 이메일 주소를 검사하기 위한 정규 표현식
+            if (emailRegex.test(email)) {
+                if (!emails.includes(email)) { // 중복된 이메일이 있다면
+                    emailWarning.textContent = "사용 가능한 이메일입니다";
+                    emailWarning.style.color = "green";
+                    emailWarning.style.fontSize = "12px";
+                    return true
+                } else {
+                    emailWarning.textContent = "이미 가입된 이메일 입니다";
+                    emailWarning.style.color = "red";
+                    emailWarning.style.fontSize = "12px";
+                    return false
+                }
+            } else {
+                emailWarning.textContent = "사용 할 수 없는 이메일 입니다";
+                emailWarning.style.color = "red";
+                emailWarning.style.fontSize = "12px";
+                return false
+            }
+        }
+
+
+
+        function checkNickname() {
+            let nicknames = []
+            fetch('/userget')
+                .then((response) => response.json())
+                .then((data) => {
+                    let user = data['result'];
+                    for (let i = 0; i < user.length; i++) {
+                        nicknames.push(user[i].nickname)
+                    }
+                })
+            let nickname = document.getElementById("usernickname").value;
+            const nicknameRegex = /^[a-zA-Z가-힣]+$/;
+
+            if (nicknameRegex.test(nickname)) {
+                if (!nicknames.includes(nickname)) { // 중복된 닉네임이 아니라면
+                    nickWarning.textContent = "사용 가능한 닉네임 입니다";
+                    nickWarning.style.color = "green";
+                    nickWarning.style.fontSize = "12px";
+                    return true
+                } else if (nickname.length < 2) {
+                    nickWarning.textContent = "사용 할 수 없는 닉네임 입니다";
+                    nickWarning.style.color = "red";
+                    nickWarning.style.fontSize = "12px";
+                    return false
+                } else {
+                    nickWarning.textContent = "이미 가입된 닉네임 입니다";
+                    nickWarning.style.color = "red";
+                    nickWarning.style.fontSize = "12px";
+                    return false
+                }
+            } else {
+                nickWarning.textContent = "한글, 영어만 입력 가능합니다";
+                nickWarning.style.color = "red";
+                nickWarning.style.fontSize = "12px";
+                return false
+            }
+        }
+
+
+        function checkPw1() {
+            let pw1 = document.getElementById("userpw1").value;
+            const pw1Regex = /^[a-zA-Z가-힣0-9]+$/;
+
+            if (pw1Regex.test(pw1)) {
+                if (pw1.length >= 8 && pw1.length <= 20) {
+                    pw1Warning.textContent = "사용 가능한 비밀번호 입니다";
+                    pw1Warning.style.color = "green";
+                    pw1Warning.style.fontSize = "12px";
+                    return true
+                } else {
+                    pw1Warning.textContent = "영문 숫자 포함 8 ~ 20자 내로 입력해주세요";
+                    pw1Warning.style.color = "red";
+                    pw1Warning.style.fontSize = "12px";
+                    return false
+                }
+            } else {
+                pw1Warning.textContent = "영문 숫자 포함 8 ~ 20자 내로 입력해주세요";
+                pw1Warning.style.color = "red";
+                pw1Warning.style.fontSize = "12px";
+                return false
+            }
+        }
+
+        function checkPw2() {
+            let pw1 = document.getElementById("userpw1").value;
+            let pw2 = document.getElementById("userpw2").value;
+            const pw2Regex = /^[a-zA-Z가-힣0-9]+$/;
+
+            if (pw2Regex.test(pw1)) {
+                if (pw1 !== pw2) {
+                    pw2Warning.textContent = "비밀번호가 다릅니다";
+                    pw2Warning.style.color = "red";
+                    pw2Warning.style.fontSize = "12px";
+                } else {
+                    pw2Warning.textContent = "비밀번호가 같습니다";
+                    pw2Warning.style.color = "green";
+                    pw2Warning.style.fontSize = "12px";
+                }
+            } else {
+                pw2Warning.textContent = "비밀번호가 다릅니다";
+                pw2Warning.style.color = "red";
+                pw2Warning.style.fontSize = "12px";
+            }
+        }
+
+
+    </script>
+</head>
+
+<body>
+
+    <div class="login-form">
+        <h1 class="title">회원가입</h1>
+        <form id="accountform">
+            <div class="leftimg"><img
+                    src="https://images.mypetlife.co.kr/content/uploads/2019/08/09153128/shutterstock_119617003.jpg"
+                    alt="leftimg"></div>
+            <div class="joinbox">
+                <p class="username">
+                    <label for="username">이름</label>
+                    <input type="text" id="username" name="username" required minlength="2" maxlength="5"
+                        placeholder="2 ~ 5자 이내 한글만 가능" onblur="checkName()">
+                    <span id="nameWarning"></span>
+
+                </p>
+                <p class="useremail">
+                    <label for="useremail">이메일</label>
+                    <span class="checkbox"><input type="email" id="useremail" name="useremail" check_result="fail"
+                            required maxlength="40" placeholder="exam@mail.com" onblur="checkEmail()">
+                        <span id="emailWarning"></span>
+                </p>
+
+                <p class="usernickname">
+                    <label for="usernickname">닉네임</label>
+                    <span class="checkbox"><input type="text" id="usernickname" name="usernickname" check_result="fail"
+                            required minlength="2" maxlength="10" placeholder="2 ~ 10자 이내 문자만 가능"
+                            onblur="checkNickname()">
+                        <span id="nickWarning"></span>
+                </p>
+
+                <p class="userpw">
+                    <label for="userpw">비밀번호</label>
+                    <input type="password" id="userpw1" name="userpw" required minlength="8" maxlength="20"
+                        placeholder="영문 숫자 포함 8 ~ 20자 내로 입력해주세요" onblur="checkPw1()">
+                    <span id="pw1Warning"></span>
+                </p>
+
+                <p class="userpw">
+                    <label for="userpw">비밀번호 확인</label>
+                    <input type="password" id="userpw2" name="userpw" required minlength="8" maxlength="20"
+                        placeholder="영문 숫자 포함 8 ~ 20자 내로 입력해주세요" onblur="checkPw2()">
+                    <span id="pw2Warning"></span>
+                </p>
+
+
+            </div>
+        </form>
+        <div><button class="joinbt" onclick="sendForm()">가입 완료</button></div>
+    </div>
+</body>
+
+</html>
