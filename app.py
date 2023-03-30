@@ -13,13 +13,21 @@ import jwt, datetime
 def home():
    return render_template('index.html')
 
-@app.route('/signup')
-def signup():
-   return render_template('signup.html')
+@app.route('/login')
+def login():
+   return render_template('login.html')
+
+@app.route('/account')
+def account():
+   return render_template('account.html')
 
 @app.route('/feed')
 def feed():
    return render_template('feed.html')
+
+@app.route('/myfeed')
+def myfeed():
+   return render_template('myfeed.html')
 
 @app.route('/feed/write')
 def feed_write():
@@ -32,10 +40,6 @@ def feed_update():
 @app.route('/cloudinary')
 def file_upload():
    return render_template('cloudinary.html')
-
-@app.route('/login')
-def login():
-   return render_template('login.html')
 
 
 
