@@ -7,7 +7,7 @@ function show_home_cards() {
   $('#cards').empty()
   
   let arr= []
-  while (arr.length <= 4) {
+  while (arr.length <= 3) {
     let ran =Math.round(Math.random() * 10)
     if (arr.includes(ran) === false) {
       arr.push(ran)
@@ -16,7 +16,7 @@ function show_home_cards() {
   console.log(arr)
   fetch('/feedget').then((res) => res.json()).then((data) => {
     let cards = data['result']
-    for (let i = 1; i <= cards.length; i++) {
+    for (let i = 1; i <= arr.length; i++) {
       let temp_html = `
       <a class="card" href="#">
         <div class="card__background"><img src="${cards[arr[i]].url}" width=100%, height=100%/></div>
@@ -34,7 +34,7 @@ function show_home_cards() {
 
 
 const loginBtn = document.querySelector('a[href="login"]');
-const logoutBtn = document.querySelector('a[href="logout"]');
+const logoutBtn = document.querySelector('logout-button');
 const token = sessionStorage.getItem("token");
 
 if (token) {
