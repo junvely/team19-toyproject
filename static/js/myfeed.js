@@ -1,6 +1,7 @@
 $(document).ready(function () {
   show_cards();
   show_swipers();
+  token_get();
 });
 
 function show_cards() {
@@ -107,19 +108,19 @@ function show_swipers() {
           .addEventListener("click", function () {
             modalOn(`card-${i}`);
           });
-
-        // 좋아요 버튼 이벤트 처리
-        // document.querySelector(`#like-btn-${i}`).addEventListener('click', function (event) {
-        //   increaseLikeCount(i, event);
-        // });
       }
     })
     .catch((err) => console.log(err));
 }
 
-// function increaseLikeCount(cardId, event) {
-//   const likeCountEl = document.querySelector(`#card-${cardId} #like-count-${cardId}`);
-//   let likeCount = parseInt(likeCountEl.textContent);
-//   likeCountEl.textContent = likeCount + 1;
-//   event.target.disabled = true; // 버튼 비활성화
-// }
+
+function token_get() {
+  fetch("/gettoken")
+    .then((res) => res.json())
+    .then((data) => {
+      let tokens = data["result"];
+      console.log(tokens)
+    })
+
+}
+

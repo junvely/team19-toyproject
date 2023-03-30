@@ -107,6 +107,19 @@ def get_user_data() :
         return jsonify({'result': True, 'token': token_receive, 'user_id' : user_id, 'name' : name, "nickname" : nickname})
     else : return {"result": False}, 404
 
+# token 가져오는 GET요청
+@app.route('/gettoken', methods=["GET"])
+def token_get():
+   # "users" 컬렉션의 모든 문서 가져오기
+   cursor = db.user.find()
+   print(cursor)
+   # "Access_token" 필드의 값을 리스트로 추출
+   # access_token_list = []
+   # for doc in cursor:
+   #    access_token_list.append(doc['Access_token'])
+   # # 결과 출력
+   # print(access_token_list)
+
 
 SECRET_KEY = 'secret_key'
 
