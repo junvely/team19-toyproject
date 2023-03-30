@@ -13,8 +13,8 @@ import jwt, datetime
 def home():
    return render_template('index.html')
 
-@app.route('/account')
-def account():
+@app.route('/signup')
+def signup():
    return render_template('signup.html')
 
 @app.route('/feed')
@@ -34,7 +34,7 @@ def file_upload():
    return render_template('cloudinary.html')
 
 @app.route('/login')
-def file_upload():
+def login():
    return render_template('login.html')
 
 
