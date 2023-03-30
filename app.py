@@ -17,9 +17,9 @@ def home():
 def login():
    return render_template('login.html')
 
-@app.route('/account')
+@app.route('/signup')
 def account():
-   return render_template('account.html')
+   return render_template('signup.html')
 
 @app.route('/feed')
 def feed():
