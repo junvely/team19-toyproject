@@ -8,8 +8,9 @@ function sendForm() {
     let emailValid = checkEmail();
     let nicknameValid = checkNickname();
     let pw1Valid = checkPw1();
+    let pw2Valid = checkPw2();
 
-    if (nameValid && emailValid && nicknameValid && pw1Valid) {
+    if (nameValid && emailValid && nicknameValid && pw1Valid &&  pw2Valid) {
         let data = {
             name,
             email,
