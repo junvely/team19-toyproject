@@ -53,6 +53,18 @@ i {
   font-size: 1.5rem;
 }
 
+.title a {
+  font-size: 2rem;
+  line-height: 2rem;
+  font-weight: 900;
+  font-family: "Roboto", sans-serif;
+  transition: all 0.2s;
+}
+
+.title a:hover {
+  color: #5153f5;
+}
+
 .navbar {
   display: flex;
   flex-direction: row;
