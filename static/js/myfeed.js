@@ -1,134 +1,67 @@
 $(document).ready(function () {
-  show_cards();
-  show_swipers();
-  token_get();
+  myfeed_get();
 });
 
-function show_cards() {
+
+function myfeed_get() {
+  let tokens = [];
   $("#cards").empty();
-  fetch("/feedget")
+  fetch("/tokenget")
     .then((res) => res.json())
     .then((data) => {
-      let cards = data["result"];
-      for (let i = 0; i < cards.length; i++) {
-        let temp_cards_html = `
-            <div class="card" id="card-${i}">
-              <div class="card-img"><img src="${cards[i].url}" onerror="${
-          this.src
-        }="../static/img/cute.jpg" width=100%, height=100%/></div>
-              <div class="card-title">${cards[i].title}</div>
-              <p class="card-body">${cards[i].description}</p>
-              <div class="like-wrapper">
-              <div class="like-count"><span id="like-count-${i}"><span class="like">♥️ </span>${
-          cards[i].like
-        }</span></div>
-              <div class="like-btn-wrapper"><button id="like-btn-${i}" class="like-btn" data-card-id="${i}">좋아요♥️</button></div>
-              </div>
-              <div class='card-footer'>
-                <p>닉네임</p>
-                <p>${cards[i].date.split(".")[1]}월 ${
-          cards[i].date.split(".")[2]
-        }일</p>
-                </div>
-            </div>
-          `;
-        $("#cards").append(temp_cards_html);
+      let token = data["result"];
+      for (let i = 0; i < token.length; i++) {
+        tokens.push(token[i].Access_token);
       }
-      // 좋아요 버튼 이벤트 처리
-      document.querySelectorAll(".like-btn").forEach((btn) => {
-        btn.addEventListener("click", function () {
-          const cardId = this.getAttribute("data-card-id");
-          const likeCountEl = document.querySelector(
-            `#card-${cardId} #like-count-${cardId}`
-          );
-          let likeCount = parseInt(likeCountEl.textContent);
-          if (this.classList.contains("liked")) {
-            likeCountEl.textContent = likeCount - 1;
-            this.classList.remove("liked");
-          } else {
-            likeCountEl.textContent = likeCount + 1;
-            this.classList.add("liked");
+      console.log(token)
+      if (tokens.includes(sessionStorage.token)) {
+        let formData = new FormData();
+        formData.append("token_give", sessionStorage.token);
+
+        //토큰을 갖고있는 사람의 닉네임
+        let usernicknamePromise = fetch("/tokengive", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => data["result"].nickname);
+        //전체 게시물
+        let feedsPromise = fetch("/feedget")
+          .then((res) => res.json())
+          .then((data) => data["result"]);
+
+        // Promise.all을 사용하여 usernickname과 feeds를 한 번에 받아옴
+        Promise.all([usernicknamePromise, feedsPromise]).then(
+          ([usernickname, feeds]) => {
+            console.log(usernickname, feeds)
+            let arr = []
+            for (let i = 0; i < feeds.length; i++) {
+              if (usernickname === feeds[i].nickname) {
+                arr.push(feeds[i])
+              }
+            }
+            console.log(arr)
+            for (let j = 1; j < arr; j++) {
+              let temp_feeds_html = `
+                <div class="card" id="card-${j}">
+                  <div class="card-img"><img src="${feeds[j].url}" width=100%, height=100%/></div>
+                  <div class="card-title">${feeds[j].title}</div>
+                  <p class="card-body">${feeds[j].description}</p>
+                  <div class="like-wrapper">
+                  <div class="like-count"><span id="like-count-${j}"><span class="like">♥️ </span>${feeds[j].like}</span></div>
+                  <div class="like-btn-wrapper"><button id="like-btn-${j}" class="like-btn" data-card-id="${j}">좋아요♥️</button></div>
+                  </div>
+                  <div class='card-footer'>
+                    <p>닉네임</p>
+                    <p>${feeds[j].date.split(".")[j]}월 ${feeds[j].date.split(".")[2]}일</p>
+                    </div>
+                </div>
+              `;
+              $("#cards").append(temp_feeds_html);
+            }
+
           }
-        });
-      });
+        );
+      }
     });
 }
-
-function modalOn(cardId) {
-  const card = document.querySelector(`#${cardId}`);
-  const cardModal = document.querySelector(".card-modal");
-  const closeBtn = document.querySelector(".close-btn");
-
-  card.addEventListener("click", function (event) {
-    if (!event.target.classList.contains("like-btn")) {
-      cardModal.classList.add("active");
-    }
-  });
-
-  closeBtn.addEventListener("click", function () {
-    cardModal.classList.remove("active");
-  });
-
-  cardModal.addEventListener("click", function (e) {
-    if (e.target === this) {
-      cardModal.classList.remove("active");
-    }
-  });
-
-  const likeBtn = card.querySelector(".like-btn");
-  const cardIndex = parseInt(cardId.split("-")[1]);
-
-  likeBtn.addEventListener("click", function (event) {
-    event.stopPropagation();
-    increaseLikeCount(cardIndex, event);
-  });
-}
-
-function show_swipers() {
-  $("#swiper").empty();
-  fetch("/feedget")
-    .then((res) => res.json())
-    .then((data) => {
-      let cards = data["result"];
-      for (let i = 0; i < cards.length; i++) {
-        let temp_swiper_html = `
-            <div id="card-${i}" class="swiper-slide" style="display: flex;justify-content: center;">
-              <div class="card">
-                <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
-                <div class="card-img"><img src="${cards[i].url}"></div>
-                <div class="card-title">${cards[i].title}</div>
-                <p class="card-body">${cards[i].description}</p>
-                <button id="like-btn-${i}" class="like-btn" data-card-id="${i}">좋아요</button>
-                <span id="like-count-${i}">${cards[i].like}</span>
-                <div class='card-footer'>
-                  <p>닉네임</p>
-                  <p>${cards[i].date.split(".")[1]}월 ${
-          cards[i].date.split(".")[2]
-        }일</p>
-                  </div>
-              </div>
-            </div>
-          `;
-        $("#swiper").append(temp_swiper_html);
-
-        document
-          .querySelector(`#card-${i}`)
-          .addEventListener("click", function () {
-            modalOn(`card-${i}`);
-          });
-      }
-    })
-    .catch((err) => console.log(err));
-}
-
-
-function token_get() {
-  fetch("/gettoken")
-    .then((res) => res.json())
-    .then((data) => {
-      let tokens = data["result"];
-      console.log(tokens)
-    })
-
-}
-

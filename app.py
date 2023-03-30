@@ -61,13 +61,13 @@ def add_user():
    return jsonify({'msg': '회원가입이 완료되었습니다'})
 
 
-# 유저 정보 가져오는 GET요청
+# 전체 유저 정보 가져오는 GET요청
 @app.route("/userget", methods=["GET"])
 def user_get():
    all_users = list(db.user.find({},{'_id':False}))
    return jsonify({'result': all_users})
 
-# 게시글 정보 가져오는 GET요청
+# 전체 게시글 정보 가져오는 GET요청
 @app.route("/feedget", methods=["GET"])
 def feed_get():
    all_feeds = list(db.postInfos.find({},{'_id':False}))
@@ -84,19 +84,6 @@ def get_user_data() :
         nickname = userData["nickname"]
         return jsonify({'result': True, 'token': token_receive, 'user_id' : user_id, 'name' : name, "nickname" : nickname})
     else : return {"result": False}, 404
-
-# token 가져오는 GET요청
-@app.route('/gettoken', methods=["GET"])
-def token_get():
-   # "users" 컬렉션의 모든 문서 가져오기
-   cursor = db.user.find()
-   print(cursor)
-   # "Access_token" 필드의 값을 리스트로 추출
-   # access_token_list = []
-   # for doc in cursor:
-   #    access_token_list.append(doc['Access_token'])
-   # # 결과 출력
-   # print(access_token_list)
 
 
 SECRET_KEY = 'secret_key'
@@ -153,29 +140,26 @@ def test_post():
 def increase_like_count():
     data = request.get_json()
     index = data.get('index')
-    # get the document with the given index
     document = db.postInfos.find_one({"index": index})
-    # increment the like count
     document["like"] += 1
-    # update the document in the database
     db.postInfos.update_one({"_id": document["_id"]}, {"$set": document})
-    # return the updated like count
     return jsonify({"like_count": document["like"]})
 
 @app.route('/feedget')
 def get_cards():
-    # get all the documents from the cards collection
     cursor = db.postInfos.find()
     result = []
     for document in cursor:
-        # remove the _id field from the document before adding to the result list
         del document["_id"]
         result.append(document)
     return jsonify({"result": result})
 
 
-
-
+@app.route('/tokengive', methods=["POST"])
+def get_login_user() :
+   token_receive = request.form['token_give']
+   loginuser = db.user.find_one({"Access_token" : token_receive},{'_id':False})
+   return jsonify({'result': loginuser})
 
 
 if __name__ == '__main__':
