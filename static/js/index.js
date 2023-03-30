@@ -1,6 +1,7 @@
 $(document).ready(function () {
   show_home_cards();
 });
+console.log("hi");
 
 function show_home_cards() {
   $("#cards").empty();
@@ -12,7 +13,7 @@ function show_home_cards() {
       arr.push(ran);
     }
   }
-  console.log(arr);
+
   fetch("/feedget")
     .then((res) => res.json())
     .then((data) => {
@@ -46,6 +47,20 @@ function show_home_cards() {
     });
 }
 
+const postBtn = document.querySelector(".new-post-box");
+
+console.log(sessionStorage.getItem("token"));
+const goLoginPage = () => {
+  if (sessionStorage.getItem("token") === null) {
+    alert("로그인이 필요한 서비스입니다!");
+    location.href = "/login";
+  } else {
+    location.href = "/feed/write";
+  }
+};
+
+postBtn.addEventListener("click", goLoginPage);
+
 const loginBtn = document.querySelector('a[href="login"]');
 const logoutBtn = document.querySelector("logout-button");
 const token = sessionStorage.getItem("token");
@@ -60,18 +75,3 @@ if (token) {
   logoutBtn.style.display = "none";
   loginBtn.style.display = "inline-block";
 }
-// console.log("hi");
-// const loginBtn = document.querySelector(".login");
-// const logoutBtn = document.querySelector("#logout-button");
-// const token = sessionStorage.getItem("token");
-// console.log(loginBtn);
-// if (token) {
-//   loginBtn.style.display = "none";
-//   logoutBtn.style.display = "inline-block";
-//   logoutBtn.addEventListener("click", () => {
-//     sessionStorage.removeItem("token");
-//   });
-// } else {
-//   logoutBtn.style.display = "none";
-//   loginBtn.style.display = "inline-block";
-// }
