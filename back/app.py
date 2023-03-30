@@ -33,6 +33,10 @@ def feed_update():
 def file_upload():
    return render_template('cloudinary.html')
 
+@app.route('/login')
+def file_upload():
+   return render_template('login.html')
+
 
 
 # 회원가입 완료시 회원 정보를 user table에 저장하는 POST요청

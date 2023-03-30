@@ -11,20 +11,18 @@ function show_cards() {
     .then((data) => {
       let cards = data['result']
       for (let i = 0; i < cards.length; i++) {
-        const date = new Date(cards[i].date);
-        const formattedDate = `${Number(date.getMonth() + 1)}월 ${Number(date.getDate())}일`;
         let temp_cards_html = `
           <div class="card" id="card-${i}">
             <div class="card-img"><img src="${cards[i].url}" width=100%, height=100%/></div>
             <div class="card-title">${cards[i].title}</div>
             <p class="card-body">${cards[i].description}</p>
             <div class="like-wrapper">
+            <div class="like-btn-wrapper"><button id="like-btn-${i}" class="like-btn" data-card-id="${i}">♥</button></div>
               <div class="like-count"><span id="like-count-${i}">${cards[i].like}</span></div>
-              <div class="like-btn-wrapper"><button id="like-btn-${i}" class="like-btn" data-card-id="${i}">좋아요</button></div>
             </div>
             <div class='card-footer'>
               <p>닉네임</p>
-              <p>${formattedDate}</p>
+              <p>${cards[i].date.split(".")[1]}월 ${cards[i].date.split(".")[2]}일</p>
             </div>
           </div>
         `
@@ -99,11 +97,13 @@ function show_swipers() {
               <div class="card-img"><img src="${cards[i].url}"></div>
               <div class="card-title">${cards[i].title}</div>
               <p class="card-body">${cards[i].description}</p>
-              <button id="like-btn-${i}" class="like-btn" data-card-id="${i}">좋아요</button>
-              <span id="like-count-${i}">${cards[i].like}</span>
+              <div class="like-wrapper">
+            <div class="like-btn-wrapper"><button id="like-btn-${i}" class="like-btn" data-card-id="${i}" style="width=20%; border:none; background: transparent;">♥</button></div>
+              <div class="like-count"><span id="like-count-${i}">${cards[i].like}</span></div>
+            </div>
               <div class='card-footer'>
                 <p>닉네임</p>
-                <p>${formattedDate}</p>
+                <p>${cards[i].date.split(".")[1]}월 ${cards[i].date.split(".")[2]}일</p>
               </div>
             </div>
           </div>
