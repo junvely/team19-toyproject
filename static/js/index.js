@@ -2,7 +2,6 @@ $(document).ready(function () {
   show_home_cards();
 });
 
-
 function show_home_cards() {
   $('#cards').empty()
   
@@ -10,7 +9,7 @@ function show_home_cards() {
   while (arr.length <= 3) {
     let ran =Math.round(Math.random() * 10)
     if (arr.includes(ran) === false) {
-      arr.push(ran)
+      arr.push(ran);
     }
   }
   console.log(arr)
@@ -19,7 +18,9 @@ function show_home_cards() {
     for (let i = 1; i <= arr.length; i++) {
       let temp_html = `
       <a class="card" href="#">
-        <div class="card__background"><img src="${cards[arr[i]].url}" width=100%, height=100%/></div>
+        <div class="card__background"><img src="${
+          cards[arr[i]].url
+        }" width=100%, height=100%/></div>
         <div class="card__content">
         <p class="card__category">${cards[arr[i]].title}</p>
         <h3 class="card__heading">${cards[arr[i]].description}</h3>
@@ -47,3 +48,18 @@ if (token) {
   logoutBtn.style.display = "none";
   loginBtn.style.display = "inline-block";
 }
+// console.log("hi");
+// const loginBtn = document.querySelector(".login");
+// const logoutBtn = document.querySelector("#logout-button");
+// const token = sessionStorage.getItem("token");
+// console.log(loginBtn);
+// if (token) {
+//   loginBtn.style.display = "none";
+//   logoutBtn.style.display = "inline-block";
+//   logoutBtn.addEventListener("click", () => {
+//     sessionStorage.removeItem("token");
+//   });
+// } else {
+//   logoutBtn.style.display = "none";
+//   loginBtn.style.display = "inline-block";
+// }
