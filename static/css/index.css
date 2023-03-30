@@ -37,15 +37,47 @@ main {
   height: 100vh;
 }
 
+ul,
+li {
+  text-decoration: none;
+  list-style: none;
+}
+
 .navbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #D2DAFF;
+  background-color: #d2daff;
   height: 50px;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 400;
+}
+
+.nav-menu {
+  width: 500px;
+}
+
+.navbar ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar li {
+  padding: 0 3%;
+  line-height: 30px;
+}
+
+.heading {
+  text-align: center;
+}
+
+.heading__title {
+  margin-top: 50px;
+  font-weight: 600;
+  color: white;
 }
 
 i {
@@ -83,13 +115,13 @@ i {
   width: 100%;
 }
 
-@media(min-width: 540px) {
+@media (min-width: 540px) {
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media(min-width: 960px) {
+@media (min-width: 960px) {
   .card-grid {
     grid-template-columns: repeat(4, 1fr);
   }
@@ -101,7 +133,7 @@ i {
 }
 
 .card:before {
-  content: '';
+  content: "";
   display: block;
   padding-bottom: 150%;
   width: 100%;
@@ -119,16 +151,14 @@ i {
   top: 0;
   transform-origin: center;
   trsnsform: scale(1) translateZ(0);
-  transition:
-    filter 200ms linear,
-    transform 200ms linear;
+  transition: filter 200ms linear, transform 200ms linear;
 }
 
 .card:hover .card__background {
   transform: scale(1.05) translateZ(0);
 }
 
-.card-grid:hover>.card:not(:hover) .card__background {
+.card-grid:hover > .card:not(:hover) .card__background {
   filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
 }
 
@@ -154,15 +184,6 @@ i {
   word-spacing: 100vw;
 }
 
-
-.login {
-  color: white;
-}
-
-.logout {
-  color: white;
-}
-
 .new-post {
   display: flex;
   justify-content: center;
@@ -181,8 +202,17 @@ i {
   background-color: #5153f5;
 }
 
-.new-post-box{
+.new-post-box {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+}
+
+.new-post-box {
+  margin-top: 50px;
+}
+
+.new-post-box a {
+  width: 300px;
+  padding: 0 3%;
 }
