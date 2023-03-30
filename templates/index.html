@@ -18,14 +18,15 @@
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://kit.fontawesome.com/0ce3899162.js" crossorigin="anonymous"></script>
   <link href="../static/css/index.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
   <script src="../static/js/index.js" defer> </script>
   <script src="../static/js/logout.js" type ="module" defer> </script>
 </head>
 
 <body>
   <nav class="navbar">
-    <div>
-      <a href="/"><i class="fa-solid fa-house home"></i></a>
+    <div class="title">
+      <a href="/">Petstargram🐶</a>
     </div>
     <div class="nav-menu">
       <ul>
@@ -42,20 +43,17 @@
       <h1 class="heading__title">Petstargram🐶</h1>
       <p class="heading__credits"><a class="heading__link" target="_blank" href="https://dribbble.com/sl"> </a></p>
     </div>
-
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-
     <section class="hero-section">
-      <div class="card-grid" id="cards">
-        <a class="card" href="#">
+      <ul id="cards">
+          <a class="card" href="#">
           <div class="card__background"></div>
           <div class="card__content">
+            <img src="../static/img/cute.jpg" alt="">
             <p class="card__category">제목</p>
             <h3 class="card__heading">내용</h3>
           </div>
-        </a>
-        <div>
-          
+          </a>
+      </ul>
     </section>
     <div class="new-post-box"><a class="new-post" href="/feed/write">내 펫 자랑하러 가기</a></div>
   </div>

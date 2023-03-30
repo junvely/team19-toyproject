@@ -172,6 +172,7 @@ def test_post():
       "url": url_receive
    }
    db.postInfos.insert_one(doc)
+   print(doc)
    return jsonify({'result': '저장완료!'})
 
 
