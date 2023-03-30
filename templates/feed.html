@@ -26,7 +26,8 @@
     ></script>
 
     <link href="../static/css/feed.css" rel="stylesheet" />
-    <script src="../static/js/feed.js"></script>
+    <script src="../static/js/feed.js" defer></script>
+    <script src="../static/js/logout.js" type="module" defer></script>
   </head>
 
   <body>
@@ -40,7 +41,9 @@
           <li><a href="/feed">피드</a></li>
           <li><a href="/feed/write">내 펫 자랑하기</a></li>
           <li><a class="login" href="/login">로그인</a></li>
-          <li><a href="/logout">로그아웃</a></li>
+          <li id="logout-button" class="logout-button" style="cursor: pointer">
+            로그아웃
+          </li>
         </ul>
       </div>
     </nav>

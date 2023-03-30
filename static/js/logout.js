@@ -1,21 +1,25 @@
 "use strict";
-import { userData } from "./login-api.js";
-
+const loginBtn = document.querySelector(".login");
 const logoutBtn = document.querySelector("#logout-button");
-const userBtn = document.querySelector("#user-button");
+console.log(loginBtn, logoutBtn);
 
 const logout = () => {
   sessionStorage.removeItem("token");
   location.href = "/login";
 };
 
-const getUserDataResult = async () => {
-  const token = sessionStorage.getItem("token");
-  if (token) {
-    const data = await userData(token);
+const displayLogout = () => {
+  if (sessionStorage.getItem("token")) {
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "block";
+  } else {
+    loginBtn.style.display = "block";
+    logoutBtn.style.display = "none";
   }
 };
 
 logoutBtn.addEventListener("click", logout);
 
-userBtn.addEventListener("click", getUserDataResult);
+(() => {
+  displayLogout();
+})();
