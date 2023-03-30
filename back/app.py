@@ -33,6 +33,8 @@ def feed_update():
 def file_upload():
    return render_template('cloudinary.html')
 
+
+
 # 회원가입 완료시 회원 정보를 user table에 저장하는 POST요청
 @app.route("/adduser", methods=["POST"])
 def add_user():
@@ -51,25 +53,25 @@ def add_user():
    return jsonify({'msg': '회원가입이 완료되었습니다'})
 
 
-# 게시글 작성 완료시 게시글을 feed table에 저장하는 POST요청
-@app.route("/addfeed", methods=["POST"])
-def add_feed():
-   nickname_receive = request.form['nickname_give']
-   title_receive = request.form['title_give']
-   description_receive = request.form['description_give']
-   date_receive = request.form['date_give']
-   like_receive = request.form['like_give']
+# # 게시글 작성 완료시 게시글을 feed table에 저장하는 POST요청
+# @app.route("/addfeed", methods=["POST"])
+# def add_feed():
+#    nickname_receive = request.form['nickname_give']
+#    title_receive = request.form['title_give']
+#    description_receive = request.form['description_give']
+#    date_receive = request.form['date_give']
+#    like_receive = request.form['like_give']
 
-   doc = {
-      'nickname': nickname_receive,
-      'title': title_receive,
-      'description': description_receive,
-      'date': date_receive,
-      'like': like_receive
-    }
+#    doc = {
+#       'nickname': nickname_receive,
+#       'title': title_receive,
+#       'description': description_receive,
+#       'date': date_receive,
+#       'like': like_receive
+#     }
    
-   db.feed.insert_one(doc)
-   return jsonify({'msg': '피드 작성 완료!'})
+#    db.feed.insert_one(doc)
+#    return jsonify({'msg': '피드 작성 완료!'})
 
 
 
@@ -82,7 +84,7 @@ def user_get():
 # 게시글 정보 가져오는 GET요청
 @app.route("/feedget", methods=["GET"])
 def feed_get():
-   all_feeds = list(db.feed.find({},{'_id':False}))
+   all_feeds = list(db.postInfos.find({},{'_id':False}))
    return jsonify({'result': all_feeds})
 
 #준영님 
@@ -163,6 +165,36 @@ def test_post():
    }
    db.postInfos.insert_one(doc)
    return jsonify({'result': '저장완료!'})
+
+
+@app.route('/like', methods=['POST'])
+def increase_like_count():
+    data = request.get_json()
+    index = data.get('index')
+    # get the document with the given index
+    document = db.postInfos.find_one({"index": index})
+    # increment the like count
+    document["like"] += 1
+    # update the document in the database
+    db.postInfos.update_one({"_id": document["_id"]}, {"$set": document})
+    # return the updated like count
+    return jsonify({"like_count": document["like"]})
+
+@app.route('/feedget')
+def get_cards():
+    # get all the documents from the cards collection
+    cursor = db.postInfos.find()
+    result = []
+    for document in cursor:
+        # remove the _id field from the document before adding to the result list
+        del document["_id"]
+        result.append(document)
+    return jsonify({"result": result})
+
+
+
+
+
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5001, debug=True)

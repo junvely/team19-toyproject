@@ -4,6 +4,18 @@
     padding: 0;
 }
 
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #D2DAFF;
+    height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
+  
+  }
+
 body{
     background: radial-gradient(#7b62fe, #b69efe);
     font-family: sans-serif;

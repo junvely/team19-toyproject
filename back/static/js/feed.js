@@ -1,76 +1,63 @@
 $(document).ready(function () {
   show_cards();
-  // modal_cards();
+  show_swipers();
 });
+
 
 function show_cards() {
   $('#cards').empty()
-  $('#swiper').empty()
-
-  for (let i = 1; i <= 15; i++) {
-    let temp_cards_html = `
-    <div class="card" id="card-${i}" onclick="modalOn('card-${i}')">
-    <div class="card-img"></div>
-    <div class="card-title">이미지${i}
-    </div>
-    <p class="card-body">본문${i}</p>
-    <div class="card-like">좋아요</div>
-    <div class='card-footer'>
-      <p>닉네임</p>
-      <p>날짜</p>
-    </div>
-  </div>
-          `
-
-    let temp_swiper_html = `
-          <div id="card-${i}" class="swiper-slide" style="display: flex;justify-content: center;">
-              <div class="card">
-                <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
-                <div class="card-img"></div>
-                <div class="card-title">제목${i}</div>
-                <p class="card-body">본문${i}</p>
-                <div class="card-like">좋아요</div>
-                <div class='card-footer'>
-                  <p>닉네임</p>
-                  <p>날짜</p>
-                </div>
-              </div>
+  fetch('/feedget')
+    .then((res) => res.json())
+    .then((data) => {
+      let cards = data['result']
+      for (let i = 0; i < cards.length; i++) {
+        const date = new Date(cards[i].date);
+        const formattedDate = `${Number(date.getMonth() + 1)}월 ${Number(date.getDate())}일`;
+        let temp_cards_html = `
+          <div class="card" id="card-${i}">
+            <div class="card-img"><img src="${cards[i].url}" width=100%, height=100%/></div>
+            <div class="card-title">${cards[i].title}</div>
+            <p class="card-body">${cards[i].description}</p>
+            <div class="like-wrapper">
+              <div class="like-count"><span id="like-count-${i}">${cards[i].like}</span></div>
+              <div class="like-btn-wrapper"><button id="like-btn-${i}" class="like-btn" data-card-id="${i}">좋아요</button></div>
             </div>
-                `
-    $('#cards').append(temp_cards_html)
-    $('#swiper').append(temp_swiper_html)
-  }
+            <div class='card-footer'>
+              <p>닉네임</p>
+              <p>${formattedDate}</p>
+            </div>
+          </div>
+        `
+        $('#cards').append(temp_cards_html)
+      }
+      // 좋아요 버튼 이벤트 처리
+      document.querySelectorAll('.like-btn').forEach((btn) => {
+        btn.addEventListener('click', function () {
+          const cardId = this.getAttribute('data-card-id');
+          const likeCountEl = document.querySelector(`#card-${cardId} #like-count-${cardId}`);
+          let likeCount = parseInt(likeCountEl.textContent);
+          if (this.classList.contains('liked')) {
+            likeCountEl.textContent = likeCount - 1;
+            this.classList.remove('liked');
+          } else {
+            likeCountEl.textContent = likeCount + 1;
+            this.classList.add('liked');
+          }
+        });
+      });
+    })
 }
 
-// function modal_cards() {
-//   $('#swiper').empty()
-//   for (let i = 1; i <= 15; i++) {
-//     let temp_swiper_html = `
-//     <div id="card-${i}" class="swiper-slide" style="display: flex;justify-content: center;">
-//         <div class="card">
-//           <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
-//           <div class="card-img"></div>
-//           <div class="card-title">제목${i}</div>
-//           <p class="card-body">본문${i}</p>
-//           <div class="card-like">좋아요</div>
-//           <div class='card-footer'>
-//             <p>닉네임</p>
-//             <p>날짜</p>
-//           </div>
-//         </div>
-//       </div>
-//           `
-//     $('#swiper').append(temp_swiper_html)
-//   }
-// }
 
 function modalOn(cardId) {
   const card = document.querySelector(`#${cardId}`);
   const cardModal = document.querySelector('.card-modal');
   const closeBtn = document.querySelector('.close-btn');
 
-  card.addEventListener('click', function () {
-    cardModal.classList.add('active');
+  card.addEventListener('click', function (event) {
+    if (!event.target.classList.contains('like-btn')) {
+      cardModal.classList.add('active');
+    }
   });
 
   closeBtn.addEventListener('click', function () {
@@ -82,8 +69,65 @@ function modalOn(cardId) {
       cardModal.classList.remove('active');
     }
   });
+
+  const likeBtn = card.querySelector('.like-btn');
+  const cardIndex = parseInt(cardId.split('-')[1]);
+
+  likeBtn.addEventListener('click', function (event) {
+    event.stopPropagation();
+    increaseLikeCount(cardIndex, event);
+  });
 }
 
 
+
+
+
+function show_swipers() {
+  $('#swiper').empty()
+  fetch('/feedget')
+    .then((res) => res.json())
+    .then((data) => {
+      let cards = data['result']
+      for (let i = 0; i < cards.length; i++) {
+        const date = new Date(cards[i].date);
+        const formattedDate = `${Number(date.getMonth() + 1)}월 ${Number(date.getDate())}일`;
+        let temp_swiper_html = `
+          <div id="card-${i}" class="swiper-slide" style="display: flex;justify-content: center;">
+            <div class="card">
+              <button class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+              <div class="card-img"><img src="${cards[i].url}"></div>
+              <div class="card-title">${cards[i].title}</div>
+              <p class="card-body">${cards[i].description}</p>
+              <button id="like-btn-${i}" class="like-btn" data-card-id="${i}">좋아요</button>
+              <span id="like-count-${i}">${cards[i].like}</span>
+              <div class='card-footer'>
+                <p>닉네임</p>
+                <p>${formattedDate}</p>
+              </div>
+            </div>
+          </div>
+        `
+        $('#swiper').append(temp_swiper_html)
+
+        document.querySelector(`#card-${i}`).addEventListener('click', function () {
+          modalOn(`card-${i}`);
+        });
+
+        // 좋아요 버튼 이벤트 처리
+        // document.querySelector(`#like-btn-${i}`).addEventListener('click', function (event) {
+        //   increaseLikeCount(i, event);
+        // });
+      }
+    })
+    .catch((err) => console.log(err));
+}
+
+// function increaseLikeCount(cardId, event) {
+//   const likeCountEl = document.querySelector(`#card-${cardId} #like-count-${cardId}`);
+//   let likeCount = parseInt(likeCountEl.textContent);
+//   likeCountEl.textContent = likeCount + 1;
+//   event.target.disabled = true; // 버튼 비활성화
+// }
 
 

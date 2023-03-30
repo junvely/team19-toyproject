@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,27 +11,25 @@
     <link rel="stylesheet" href="../static/css/new-post.css">
     <title>Document</title>
 
-    <script>
-        // let loadFile = function(event) {
-        //   let reader = new FileReader();
-        //   reader.onload = function(){
-        //     let output = document.getElementById('uploadedImg');
-        //     output.src = reader.result;
-        //   };
-        //   reader.readAsDataURL(event.target.files[0]);
-        // };
-      </script>
 </head>
+
 <body>
+    <nav class="navbar">
+        <div>
+          <a href="/"><i class="fa-solid fa-house home" ></i></a>
+        </div>
+        <div>
+          <tr>
+            <td><a href="/myfeed">내 피드</a></td>
+            <td><a href="/feed">피드</a></td>
+            <td><a href="/feed/write">내 펫 자랑하기</a></td>
+            <td><a class="login" href="/login">로그인</a></td>
+            <td><a href="/logout">로그아웃</a></td>
+          </tr>
+        </div>
+      </nav>
     <div class="container">
         <div class="new-post">
-            <!-- <form method="post" action='/' encype="multipart/form-data" class="new-post__upload">
-                <div class="new-post__img">
-                    <img id="uploadedImg" alt="">
-                    <input type="file" accept="image/*" onchange='loadFile(event)' name="file" id="upload"> 
-                    
-                </div>
-            </form> -->
 
             <form method="post" enctype="multipart/form-data">
                 <input type="file" name="files[]" multiple />
@@ -44,10 +43,12 @@
                     <input id="titleInput" type="text" class="new-post__input" placeholder="제목">
                 </div>
                 <div class="new-post__description">
-                    <textarea class="new-post__textarea" name="" id="descriptionTextarea" cols="30" rows="10" placeholder="내용을 입력하세요..."></textarea>
+                    <textarea class="new-post__textarea" name="" id="descriptionTextarea" cols="30" rows="10"
+                        placeholder="내용을 입력하세요..."></textarea>
                 </div>
                 <div class="new-post__addBtn">
-                    <button id="addBtn" class="add-button" type=""><i class="fa-solid fa-share-from-square"></i>공유하기</button>
+                    <button id="addBtn" class="add-button" type=""><i
+                            class="fa-solid fa-share-from-square"></i>공유하기</button>
                 </div>
             </div>
         </div>
@@ -55,4 +56,5 @@
 
     <script src="../static/js/new-post.js"></script>
 </body>
+
 </html>

@@ -5,6 +5,7 @@ $(document).ready(function () {
 
 function show_home_cards() {
   $('#cards').empty()
+  
   let arr= []
   while (arr.length <= 4) {
     let ran =Math.round(Math.random() * 10)
@@ -12,18 +13,23 @@ function show_home_cards() {
       arr.push(ran)
     }
   }
-  for (let i = 1; i <= 4; i++) {
-    let temp_html = `
-    <a class="card" href="#">
-      <div class="card__background">${arr[i]}</div>
-      <div class="card__content">
-      <p class="card__category">${arr[i]}</p>
-      <h3 class="card__heading">${arr[i]}</h3>
-    </div>
-  </a>
-          `
-    $('#cards').append(temp_html)
-  }
+  console.log(arr)
+  fetch('/feedget').then((res) => res.json()).then((data) => {
+    let cards = data['result']
+    for (let i = 1; i <= cards.length; i++) {
+      let temp_html = `
+      <a class="card" href="#">
+        <div class="card__background"><img src="${cards[arr[i]].url}" width=100%, height=100%/></div>
+        <div class="card__content">
+        <p class="card__category">${cards[arr[i]].title}</p>
+        <h3 class="card__heading">${cards[arr[i]].description}</h3>
+      </div>
+    </a>
+            `
+      $('#cards').append(temp_html)
+    }
+  })
+
 }
 
 

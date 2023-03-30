@@ -44,6 +44,7 @@ const addInfo = () => {
     }
     if (inputTitle.value != '' && inputDescription.value != '') {
         hey(info)
+        window.location.href="http://localhost:5001/feed/write"
     } else {
         alert('BLANK ERRORRRRRRRRRRRRR!!!!!!!!!!!!!!!!')
     }
