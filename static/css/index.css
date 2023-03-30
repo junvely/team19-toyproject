@@ -153,13 +153,13 @@ i {
   transition: filter 200ms linear, transform 200ms linear;
 }
 
-.card:hover .card__background {
+/* .card:hover .card__background {
   transform: scale(1.05) translateZ(0);
 }
 
 .card-grid:hover > .card:not(:hover) .card__background {
   filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
-}
+} */
 
 .card__content {
   left: 0;

@@ -10,10 +10,6 @@ function show_cards() {
     .then((data) => {
       let cards = data["result"];
       for (let i = 0; i < cards.length; i++) {
-        const date = new Date(cards[i].date);
-        const formattedDate = `${Number(date.getMonth() + 1)}월 ${Number(
-          date.getDate()
-        )}일`;
         let temp_cards_html = `
             <div class="card" id="card-${i}">
               <div class="card-img"><img src="${cards[i].url}" width=100%, height=100%/></div>
@@ -25,8 +21,8 @@ function show_cards() {
               </div>
               <div class='card-footer'>
                 <p>닉네임</p>
-                <p>${formattedDate}</p>
-              </div>
+                <p>${cards[i].date.split(".")[1]}월 ${cards[i].date.split(".")[2]}일</p>
+                </div>
             </div>
           `;
         $("#cards").append(temp_cards_html);
@@ -88,10 +84,6 @@ function show_swipers() {
     .then((data) => {
       let cards = data["result"];
       for (let i = 0; i < cards.length; i++) {
-        const date = new Date(cards[i].date);
-        const formattedDate = `${Number(date.getMonth() + 1)}월 ${Number(
-          date.getDate()
-        )}일`;
         let temp_swiper_html = `
             <div id="card-${i}" class="swiper-slide" style="display: flex;justify-content: center;">
               <div class="card">
@@ -103,8 +95,8 @@ function show_swipers() {
                 <span id="like-count-${i}">${cards[i].like}</span>
                 <div class='card-footer'>
                   <p>닉네임</p>
-                  <p>${formattedDate}</p>
-                </div>
+                  <p>${cards[i].date.split(".")[1]}월 ${cards[i].date.split(".")[2]}일</p>
+                  </div>
               </div>
             </div>
           `;
