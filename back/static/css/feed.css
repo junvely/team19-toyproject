@@ -87,9 +87,10 @@ i {
   transition: all 0.2s;
 }
 
-.like-btn-wrapper {
+.like-wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: end;
 }
 
 .card:hover {

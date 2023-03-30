@@ -15,7 +15,7 @@ def home():
 
 @app.route('/account')
 def account():
-   return render_template('account.html')
+   return render_template('signup.html')
 
 @app.route('/feed')
 def feed():
@@ -32,6 +32,10 @@ def feed_update():
 @app.route('/cloudinary')
 def file_upload():
    return render_template('cloudinary.html')
+
+@app.route('/login')
+def file_upload():
+   return render_template('login.html')
 
 
 
