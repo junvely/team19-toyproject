@@ -1,7 +1,6 @@
 "use strict";
 const loginBtn = document.querySelector(".login");
 const logoutBtn = document.querySelector("#logout-button");
-console.log(loginBtn, logoutBtn);
 
 const logout = () => {
   sessionStorage.removeItem("token");

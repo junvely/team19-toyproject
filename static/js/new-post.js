@@ -1,87 +1,93 @@
-let inputTitle = document.querySelector('#titleInput')
-let inputDescription = document.querySelector('#descriptionTextarea')
-let inputImage = document.querySelector('#upload')
-let add = document.querySelector('#addBtn')
+let inputTitle = document.querySelector("#titleInput");
+let inputDescription = document.querySelector("#descriptionTextarea");
+let inputImage = document.querySelector("#upload");
+let add = document.querySelector("#addBtn");
 const url = "https://api.cloudinary.com/v1_1/dilvblhxt/image/upload";
 const form = document.querySelector("form");
 
-
-
 let dataValue;
 form.addEventListener("submit", (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const files = document.querySelector("[type=file]").files;
-    const formData = new FormData();
+  const files = document.querySelector("[type=file]").files;
+  const formData = new FormData();
 
-    for (let i = 0; i < files.length; i++) {
-        let file = files[i];
-        formData.append("file", file);
-        formData.append("upload_preset", "syveus47");
+  for (let i = 0; i < files.length; i++) {
+    let file = files[i];
+    formData.append("file", file);
+    formData.append("upload_preset", "syveus47");
 
-        fetch(url, {
-            method: "POST",
-            body: formData,
-        })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                dataValue = data.url;
-            });
-    }
-})
-
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        dataValue = data.url;
+      });
+  }
+});
 
 const addInfo = () => {
-    let info = {
-        id: uniqueId(),
-        title: inputTitle.value,
-        description: inputDescription.value,
-        date: postDate(),
-        like: 0,
-        url: dataValue
-    }
-    if (inputTitle.value != '' && inputDescription.value != '') {
-        hey(info)
-        window.location.href="http://localhost:5001/feed/write"
-    } else {
-        alert('BLANK ERRORRRRRRRRRRRRR!!!!!!!!!!!!!!!!')
-    }
-}
-
+  let info = {
+    id: uniqueId(),
+    title: inputTitle.value,
+    description: inputDescription.value,
+    date: postDate(),
+    like: 0,
+    url: dataValue,
+  };
+  if (inputTitle.value != "" && inputDescription.value != "") {
+    hey(info);
+    window.location.href = "http://localhost:5001/feed/write";
+  } else {
+    alert("BLANK ERRORRRRRRRRRRRRR!!!!!!!!!!!!!!!!");
+  }
+};
 
 const postDate = () => {
-    let newDate = new Date().toLocaleString();
-    return newDate
-}
-
-console.log(postDate())
+  let newDate = new Date().toLocaleString();
+  return newDate;
+};
 
 const uniqueId = () => {
-    return Math.floor(Date.now() + Math.random() * 100)
-}
+  return Math.floor(Date.now() + Math.random() * 100);
+};
 
 const resetValue = () => {
-    inputTitle.value = ''
-    inputDescription.value = ''
+  inputTitle.value = "";
+  inputDescription.value = "";
 
-    return resetValue
-}
+  return resetValue;
+};
 
 //서버에 보내는 함수 헤이
 function hey(info) {
-    let formData = new FormData();
-    formData.append("title_give", info.title);
-    formData.append("description_give", info.description);
-    formData.append("date_give", info.date);
-    formData.append('like_give', info.like);
-    formData.append('url_give', info.url);
+  let formData = new FormData();
+  formData.append("title_give", info.title);
+  formData.append("description_give", info.description);
+  formData.append("date_give", info.date);
+  formData.append("like_give", info.like);
+  formData.append("url_give", info.url);
 
-    fetch("/test", { method: "POST", body: formData }).then(res => res.json()).then(data => {
-        console.log(data)
-    })
+  fetch("/test", { method: "POST", body: formData })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    });
 }
 
+let loadFile = function (event) {
+  let reader = new FileReader();
+  reader.onload = function () {
+    let output = document.getElementById("output");
+    output.src = reader.result;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+  let label = document.querySelector("#label");
+  label.classList.add("hide");
+};
 
-add.addEventListener('click', addInfo )
+add.addEventListener("click", addInfo);

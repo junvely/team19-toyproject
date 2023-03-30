@@ -44,35 +44,52 @@
       </div>
       <div class="new-post">
         <form method="post" enctype="multipart/form-data">
-          <input type="file" name="files[]" multiple />
-          <input type="submit" value="Upload Files" name="submit" />
-        </form>
+          <div class="new-post__file">
+            <div class="new-post__chooseImage">
+              <input
+                type="file"
+                name="files[]"
+                id="chooseFile"
+                onchange="loadFile(event)"
+                multiple
+                hidden
+              />
+              <label id="label" for="chooseFile" class="chooseFile"
+                ><i class="fa-solid fa-cloud-arrow-up"></i>사진을
+                선택해주세요</label
+              >
+              <img id="output" />
+            </div>
 
-        <div class="new-post__add">
-          <div class="new-post__title">
-            <input
-              id="titleInput"
-              type="text"
-              class="new-post__input"
-              placeholder="제목"
-            />
+            <div class="new-post__uploadImage">
+              <input type="submit" value="사진 올리기" name="submit" />
+            </div>
           </div>
-          <div class="new-post__description">
-            <textarea
-              class="new-post__textarea"
-              name=""
-              id="descriptionTextarea"
-              cols="30"
-              rows="10"
-              placeholder="내용을 입력하세요..."
-            ></textarea>
+
+          <div class="new-post__add">
+            <div class="new-post__title">
+              <input
+                id="titleInput"
+                type="text"
+                class="new-post__input"
+                placeholder="제목"
+              />
+            </div>
+            <div class="new-post__description">
+              <textarea
+                class="new-post__textarea"
+                name=""
+                id="descriptionTextarea"
+                cols="30"
+                rows="10"
+                placeholder="내용을 입력해주세요"
+              ></textarea>
+            </div>
+            <div class="new-post__addBtn">
+              <button id="addBtn" class="add-button" type="">공유하기</button>
+            </div>
           </div>
-          <div class="new-post__addBtn">
-            <button id="addBtn" class="add-button" type="">
-              <i class="fa-solid fa-share-from-square"></i>공유하기
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
 
