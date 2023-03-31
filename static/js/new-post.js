@@ -43,8 +43,6 @@ const addInfo = () => {
     like: 0,
     url: dataValue,
   };
-  console.log(info);
-  console.log(info.nickname);
   if (inputTitle.value != "" && inputDescription.value != "") {
     hey(info);
     window.location.href = "http://localhost:5001/feed/write";
@@ -95,12 +93,16 @@ function hey(info, event) {
   formData.append("like_give", info.like);
   formData.append("url_give", info.url);
   formData.append("nickname_give", info.nickname);
-
-  fetch("/test", { method: "POST", body: formData })
+  if(info.url) {
+    fetch("/test", { method: "POST", body: formData })
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
     });
+  } else {
+    alert('사진올리기를 눌러주세요!')
+  }
+
 }
 
 let loadFile = function (event) {

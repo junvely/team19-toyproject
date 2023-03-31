@@ -143,7 +143,6 @@ def test_post():
    db.postInfos.insert_one(doc)
    return jsonify({'result': '저장완료!'})
 
-
 @app.route('/like', methods=['POST'])
 def increase_like_count():
     data = request.get_json()
@@ -162,12 +161,19 @@ def get_cards():
         result.append(document)
     return jsonify({"result": result})
 
-
 @app.route('/tokengive', methods=["POST"])
 def get_login_user() :
    token_receive = request.form['token_give']
    loginuser = db.user.find_one({"Access_token" : token_receive},{'_id':False})
    return jsonify({'result': loginuser})
+
+
+@app.route('/deletefeed', methods=["POST"])
+def deletefeed() :
+   url_receive = request.form['url_give']
+   db.postInfos.delete_one({"url" : url_receive})
+   return jsonify({'msg': '삭제 완료!'})
+
 
 
 if __name__ == '__main__':
