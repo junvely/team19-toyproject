@@ -30,15 +30,21 @@ form.addEventListener("submit", (e) => {
   }
 });
 
+let nickname;
+
 const addInfo = () => {
+  getUserData();
   let info = {
     id: uniqueId(),
     title: inputTitle.value,
+    nickname: nickname,
     description: inputDescription.value,
     date: postDate(),
     like: 0,
     url: dataValue,
   };
+  console.log(info);
+  console.log(info.nickname);
   if (inputTitle.value != "" && inputDescription.value != "") {
     hey(info);
     window.location.href = "http://localhost:5001/feed/write";
@@ -63,14 +69,32 @@ const resetValue = () => {
   return resetValue;
 };
 
+const getUserData = () => {
+  const token = sessionStorage.getItem("token");
+  const formData = new FormData();
+  formData.append("token_give", token);
+
+  return fetch("/auth/user_data", { method: "POST", body: formData })
+    .then((res) => res.json())
+    .then((data) => {
+      nickname = data.nickname;
+      return data.nickname;
+    });
+};
+
+console.log(getUserData());
+
 //서버에 보내는 함수 헤이
-function hey(info) {
+function hey(info, event) {
+  console.log(info.nickname);
+  // event.preventDefault();
   let formData = new FormData();
   formData.append("title_give", info.title);
   formData.append("description_give", info.description);
   formData.append("date_give", info.date);
   formData.append("like_give", info.like);
   formData.append("url_give", info.url);
+  formData.append("nickname_give", info.nickname);
 
   fetch("/test", { method: "POST", body: formData })
     .then((res) => res.json())

@@ -1,7 +1,6 @@
 $(document).ready(function () {
   show_home_cards();
 });
-console.log("hi");
 
 function show_home_cards() {
   $("#cards").empty();
@@ -49,7 +48,6 @@ function show_home_cards() {
 
 const postBtn = document.querySelector(".new-post-box");
 
-console.log(sessionStorage.getItem("token"));
 const goLoginPage = () => {
   if (sessionStorage.getItem("token") === null) {
     alert("로그인이 필요한 서비스입니다!");
