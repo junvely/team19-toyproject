@@ -40,20 +40,20 @@ function myfeed_get() {
                 arr.push(feeds[i])
               }
             }
-            console.log(arr)
-            for (let j = 1; j < arr; j++) {
+            console.log(arr[0])
+            for (let j = 0; j < arr; j++) {
               let temp_feeds_html = `
                 <div class="card" id="card-${j}">
-                  <div class="card-img"><img src="${feeds[j].url}" width=100%, height=100%/></div>
-                  <div class="card-title">${feeds[j].title}</div>
-                  <p class="card-body">${feeds[j].description}</p>
+                  <div class="card-img"><img src="${arr[j].url}" width=100%, height=100%/></div>
+                  <div class="card-title">${arr[j].title}</div>
+                  <p class="card-body">${arr[j].description}</p>
                   <div class="like-wrapper">
                   <div class="like-count"><span><span class="like">♥️</span><span id="like-count-${i}">${cards[i].like}</span></div>
                   <div class="like-btn-wrapper"><button id="like-btn-${i}" class="like-btn" data-card-id="${i}">좋아요♥️</button></div>
                   </div>
                   <div class='card-footer'>
                     <p>닉네임</p>
-                    <p>${feeds[j].date.split(".")[j]}월 ${feeds[j].date.split(".")[2]}일</p>
+                    <p>${feeds[j].date.split(".")[j]}월 ${arr[j].date.split(".")[2]}일</p>
                     </div>
                 </div>
               `;
