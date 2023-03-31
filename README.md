@@ -22,7 +22,7 @@
 - Swiper 기능을 이용해 팝업창을 구성했고,  Cloudinary를 사용해 이미지 업로드를 구현함.
 
 
-<h2>team19-toyproject-signup</h2><br/> 
+**#team19-toyproject-signup**
 <h2>회원가입 페이지</h2><br/> 
 이 코드는 회원가입을 위한 웹페이지를 구현하기 위한 코드입니다. 이 페이지는 서버와의 통신을 위해 fetch() 함수를 사용합니다. 또한 FormData를 사용하여 사용자가 입력한 정보를 서버로 전송합니다.<br/> 
 
