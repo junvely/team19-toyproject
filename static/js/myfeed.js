@@ -48,12 +48,12 @@ function myfeed_get() {
                   <div class="card-title">${arr[j].title}</div>
                   <p class="card-body">${arr[j].description}</p>
                   <div class="like-wrapper">
-                  <div class="like-count"><span><span class="like">♥️</span><span id="like-count-${i}">${cards[i].like}</span></div>
-                  <div class="like-btn-wrapper"><button id="like-btn-${i}" class="like-btn" data-card-id="${i}">좋아요♥️</button></div>
+                  <div class="like-count"><span><span class="like">♥️</span><span id="like-count-${i}">${arr[j].like}</span></div>
+                  <div class="like-btn-wrapper"><button id="like-btn-${j}" class="like-btn" data-card-id="${j}">좋아요♥️</button></div>
                   </div>
                   <div class='card-footer'>
-                    <p>닉네임</p>
-                    <p>${feeds[j].date.split(".")[j]}월 ${arr[j].date.split(".")[2]}일</p>
+                  <p>${arr[j].nickname}</p>
+                  <p>${arr[j].date.split(".")[j]}월 ${arr[j].date.split(".")[2]}일</p>
                     </div>
                 </div>
               `;
