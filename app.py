@@ -78,17 +78,18 @@ def feed_get():
 def get_user_data() :
     token_receive = request.form['token_give']
     userData = db.user.find_one({"Access_token" : token_receive},{'_id':False})
+
     if userData :
         user_id = userData["user_id"]
         name = userData["name"]
         nickname = userData["nickname"]
+
         return jsonify({'result': True, 'token': token_receive, 'user_id' : user_id, 'name' : name, "nickname" : nickname})
     else : return {"result": False}, 404
 
 
 SECRET_KEY = 'secret_key'
 
-print(SECRET_KEY)
 @app.route("/auth/login", methods=["POST"])
 def login_post():
     id_receive = request.form['id_give']
@@ -99,8 +100,7 @@ def login_post():
         user_id = userData["user_id"]
         password = userData["password"]
 
-        print(userData)
-        print(userData and user_id == id_receive and  password == password_receive)
+        
         if userData and user_id == id_receive and  password == password_receive :
         # 토큰 리턴하고
             payload = {
@@ -118,21 +118,24 @@ def login_post():
 #한빛님
 @app.route('/test', methods=['POST'])
 def test_post():
+   print('hi')
    title_receive = request.form['title_give']
    description_receive = request.form['description_give']
    date_receive = request.form['date_give']
    like_receive = request.form['like_give']
    url_receive = request.form['url_give']
+   nickname_receive = request.form['nickname_give']
 
    doc = {
       "title": title_receive,
+      "nickname" : nickname_receive,
       "description": description_receive,
       "date": date_receive,
       "like": like_receive,
       "url": url_receive
    }
+   
    db.postInfos.insert_one(doc)
-   print(doc)
    return jsonify({'result': '저장완료!'})
 
 
