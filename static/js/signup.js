@@ -10,7 +10,7 @@ function sendForm() {
     let pw1Valid = checkPw1();
     let pw2Valid = checkPw2();
 
-    if (nameValid && emailValid && nicknameValid && pw1Valid &&  pw2Valid) {
+    if (nameValid && emailValid && nicknameValid && pw1Valid && pw2Valid) {
         let data = {
             name,
             email,
@@ -175,19 +175,22 @@ function checkPw2() {
     const pw2Regex = /^[a-zA-Z가-힣0-9]+$/;
 
     if (pw2Regex.test(pw1)) {
-        if (pw1 !== pw2) {
-            pw2Warning.textContent = "비밀번호가 다릅니다";
-            pw2Warning.style.color = "red";
-            pw2Warning.style.fontSize = "12px";
-        } else {
+        if (pw1 === pw2) {
             pw2Warning.textContent = "비밀번호가 같습니다";
             pw2Warning.style.color = "green";
             pw2Warning.style.fontSize = "12px";
+            return true
+        } else {
+            pw2Warning.textContent = "비밀번호가 다릅니다";
+            pw2Warning.style.color = "red";
+            pw2Warning.style.fontSize = "12px";
+            return false
         }
     } else {
         pw2Warning.textContent = "비밀번호가 다릅니다";
         pw2Warning.style.color = "red";
         pw2Warning.style.fontSize = "12px";
+        return false
     }
 }
 
