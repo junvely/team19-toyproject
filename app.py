@@ -73,6 +73,11 @@ def feed_get():
    all_feeds = list(db.postInfos.find({},{'_id':False}))
    return jsonify({'result': all_feeds})
 
+@app.route("/tokenget", methods=["GET"])
+def token_get():
+   all_tokens = list(db.user.find({}, {'_id':False, 'Access_token':1}))
+   return jsonify({'result': all_tokens})
+
 #준영님 
 @app.route('/auth/user_data', methods=["POST"])
 def get_user_data() :

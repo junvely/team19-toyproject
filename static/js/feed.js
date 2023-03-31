@@ -20,8 +20,8 @@ function show_cards() {
             <div class="like-btn-wrapper"><button id="like-btn-${i}" class="like-btn" data-card-id="${i}">좋아요♥️</button></div>
             </div>
             <div class='card-footer'>
-              <p>닉네임</p>
-              <p>${cards[i].date.split(".")[1]}월 ${
+            <p>${cards[i].nickname}</p>
+            <p>${cards[i].date.split(".")[1]}월 ${
           cards[i].date.split(".")[2]
         }일</p>
             </div>
@@ -98,7 +98,7 @@ function show_swipers() {
               <div class="like-btn-wrapper"><button id="like-btn-${i}" class="like-btn" data-card-id="${i}">좋아요♥️</button></div>
               </div>
               <div class='card-footer'>
-                <p>닉네임</p>
+                <p>${cards[i].nickname}</p>
                 <p>${cards[i].date.split(".")[1]}월 ${
           cards[i].date.split(".")[2]
         }일</p>
