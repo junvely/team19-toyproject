@@ -55,7 +55,7 @@ function myfeed_get() {
                   </div>
                   <div class='card-footer'>
                   <p>${arr[j].nickname}</p>
-                  <p>${arr[j].date.split(".")[j]}월 ${
+                  <p>${arr[j].date.split(".")[1]}월 ${
                 arr[j].date.split(".")[2]
               }일</p>
                     </div>
