@@ -1,4 +1,4 @@
-# 🐶 펫 스타그램(Petstagram)
+## 🐶 펫 스타그램(Petstagram)
 
 1. 프로젝트 Description
 
@@ -6,7 +6,7 @@
 
 ##### 로그인 페이지
 
-## <img src="../static/img/login.jpg" />
+## <img src="./static/img/login.jpg" />
 
 ##### MEMBERS
 
@@ -18,7 +18,7 @@
    | Frontend | Frontend | Frontend | Frontend |  
    | [github](https://github.com/hanbitk) | [github](https://github.com/@ringkoo/) | [github](https://github.com/junvely) | [github](https://github.com/whdgnszz1) | |
 
-# ⚙️사용환경
+## ⚙️사용환경
 
 - 설치(Getting Started / Installation)
   CSS: 별도 설치 필요 없음
